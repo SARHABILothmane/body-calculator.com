@@ -1,0 +1,87 @@
+<div id="section-about">
+  <section id="formation-section1" #target class="position-relative">
+    <div class="pb-5">
+      <h1 class="text-secondary text-center">Body calculator</h1>
+      <app-calculator-scientifique></app-calculator-scientifique>
+    </div>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-4 text-center about-card">
+          <a routerLink="/health/bmi-calculator/.">
+            <div style="width: 80%;" class="mx-auto">
+              <!-- <ng-lottie [options]="bmi" height="220px"></ng-lottie> -->
+            </div>
+            <h2 class="mb-4">Body mass index BMI calculator</h2>
+          </a>
+        </div>
+
+        <div class="col-12 col-md-4 text-center about-card">
+          <a routerLink="/health/body-fat-percentage-calculator/.">
+            <!-- <ng-lottie [options]="bfp" height="220px"></ng-lottie> -->
+            <h2 class="mb-4">Body fat percentage BFP calculator</h2>
+          </a>
+        </div>
+
+        <div class="col-12 col-md-4 text-center about-card">
+          <a routerLink="/health/ideal-weight-calculator/.">
+            <div style="width: 45%;" class="mx-auto">
+              <!-- <ng-lottie [options]="iwc" height="220px"></ng-lottie> -->
+            </div>
+            <h2 class="mb-4" routerLink="/health/ideal-weight-calculator/.">Ideal weight calculator</h2>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="row align-items-center">
+        <div class="col-12 col-md-4 text-center about-card">
+          <a routerLink="/health/body-shape-calculator/.">
+            <div style="width: 60%;" class="mx-auto">
+              <!-- <ng-lottie height="220px" [options]="bsc"></ng-lottie> -->
+            </div>
+            <h2 class="mb-4">body shape calculator</h2>
+          </a>
+        </div>
+
+        <div class="col-12 col-md-4 mx-auto text-center about-card">
+          <a routerLink="/health/bmr-calculator/.">
+            <div style="width: 80%;" class="mx-auto">
+              <!-- <ng-lottie height="220px" [options]="bmr"></ng-lottie> -->
+            </div>
+            <h2 class="mb-4 mt-5">Basal metabolic rate BMR calculator</h2>
+          </a>
+        </div>
+
+        <div class="col-12 col-md-4 mx-auto text-center about-card">
+          <a routerLink="/health/healthy-weight-calculator/.">
+            <div style="width: 50%;" class="mx-auto">
+              <!-- <ng-lottie height="220px" [options]="hwc"></ng-lottie> -->
+            </div>
+            <h2 class="mb-4">Healthy Weight calculator</h2>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-4 mx-auto text-center about-card">
+          <a routerLink="/calculators/age-calculator/.">
+            <div style="width: 70%;" class="mx-auto">
+              <!-- <ng-lottie height="220px" [options]="calendre"></ng-lottie> -->
+            </div>
+            <h2 class="mb-4">Age calculator</h2>
+          </a>
+        </div>
+        <div class="col-12 col-md-4 mx-auto text-center about-card">
+          <a routerLink="/calculators/date-calculator/.">
+            <div style="width: 60%;" class="mx-auto">
+              <!-- <ng-lottie height="220px" [options]="date"></ng-lottie> -->
+            </div>
+            <h2 class="mb-4">Date calculator</h2>
+          </a>
+        </div>
+      </div>
+    </div>
+    <ngx-json-ld [json]="schema"></ngx-json-ld>
+  </section>
+</div>

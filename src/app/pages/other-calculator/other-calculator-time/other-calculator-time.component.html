@@ -1,0 +1,9 @@
+<p class="font-weight-bold text-center">Other calculators</p>
+<section class="row pb-4" [innerHTML]="otherCalculators">
+</section>
+<a rel="noopener" [routerLink]="goToOtherPage.url">
+  <button style="position: fixed; bottom: 0px;width: 200px;height: 40px;margin: 0 auto;left: 0;right: 0;
+    bottom:10px;background-color: #33a4ff; color:white; z-index: 1; font-weight:bold;font-size:15px;" class="btn">
+    Go to {{goToOtherPage.name}}
+  </button>
+</a>

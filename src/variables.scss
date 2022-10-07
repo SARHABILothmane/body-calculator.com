@@ -1,0 +1,29 @@
+@function color($color-name) {
+  @return map-get($colors, $color-name)
+}
+
+;
+
+@function font($font-name) {
+  @return map-get($fonts, $font-name)
+}
+
+;
+$fonts: (font-family-regular: 'Open Sans Regular', font-family-bold: 'Open Sans Bold', font-family-semiBold: 'Open Sans SemiBold', font-family-light: 'Open Sans Light', );
+//colors
+//#00E096
+//#34e5ff
+$colors :(primary: #3c7db7,
+  primary-light: #53c5d8,
+  blue-primary: #549edf,
+  blue-light: rgba(53, 102, 248, 0.08),
+  secondary: #00E096,
+  secondary-light: #90f8d6,
+  bg-color:#F5F7FA,
+  title-color: #edf1f7,
+  dark: #000,
+  reverse: #EDF6F9,
+  white: white,
+  danger: #FF3D71,
+  green-temp: #00E096,
+  colorLighthouse: #006FA6);

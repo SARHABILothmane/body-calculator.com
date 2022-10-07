@@ -1,0 +1,89 @@
+@import '../../../mediaqueries.scss';
+@import '../../../variables.scss';
+
+
+
+#footer-section {
+
+  /*********************************
+    14. Footer
+    *********************************/
+  .footer-text {
+    font-family: font(font-family-regular);
+    color: #FFFFFF;
+    font-size: 18px;
+  }
+
+  .footer-text a {
+    // font-family: $poppins-black;
+    font-family: font(font-family-regular);
+    color: #FFFFFF;
+    font-size: 18px;
+    text-decoration: none;
+  }
+
+  .footer-text a:hover {
+    color: black;
+  }
+
+  .footer-title a:hover {
+    color: black;
+  }
+
+  .footer-title {
+    font-family: font(font-family-regular);
+    font-weight: bolder;
+    font-size: 22px;
+  }
+
+  .footer {
+    background: linear-gradient(90deg, color(blue-primary) 0%, color(primary) 35%, color(primary-light) 100%);
+  }
+
+  .social-icon {
+    line-height: 45px;
+    font-size: 40px;
+    color: white;
+  }
+
+  .social-icon:hover {
+    color: color(primary-light);
+    transform: scale(1.1);
+  }
+
+  .copyright {
+    height: 54px;
+    border-top: solid 1px #353a49;
+
+    @include tablet-sm {
+      height: 60px;
+
+    }
+
+    @include mobile-l {
+      height: 80px;
+    }
+  }
+
+  .copyright div {
+    font-family: font(font-family-regular);
+    color: #FFFFFF;
+    font-size: 18px;
+    text-decoration: none;
+  }
+
+
+  //responsive
+  .copyright div {
+    @include tablet-sm {
+      font-family: font(font-family-regular);
+      font-size: 14px;
+    }
+
+    @include mobile-l {
+      font-family: font(font-family-regular);
+      font-size: 12px;
+    }
+  }
+
+}

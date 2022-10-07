@@ -1,0 +1,309 @@
+<nb-layout>
+  <nb-layout-column>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 px-0 mx-0">
+          <h1 class="text-secondary text-center mb-3 px-2">Date calculator</h1>
+          <div class="flexMobile">
+            <app-banner *ngIf="envirement"></app-banner>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4 d-flex justify-content-center">
+        <div class="col-md-5 mb-4">
+          <div class="card">
+            <div class="card-header text-white text-center font-weight-bold">
+              <h2 class="text-white">Days between two dates</h2>
+            </div>
+            <div class="card-body example-items-col">
+              <div *ngIf="error" class="alert alert-danger w-75 mx-auto text-center" role="alert">
+                <span>
+                  {{error}}
+                </span>
+              </div>
+              <form [formGroup]="calculeDate" (ngSubmit)="CalculateDate(target)">
+                <div>
+                  <label for="Start date">Start date</label>
+                  <input placeholder="Start date" class="form-control" formControlName="startDate"
+                    [nbDatepicker]="birthdayTimePicker">
+                  <small class="text-danger" *ngIf="submitted && formDate.startDate.errors?.required">Start date is
+                    required.
+                    !</small>
+                  <nb-datepicker [startView]="'year'" #birthdayTimePicker></nb-datepicker>
+                </div>
+                <div>
+                  <label class="mt-3" for="Date end">End date</label>
+                  <input class="form-control" placeholder="End date" formControlName="dateEnd"
+                    [nbDatepicker]="todayTimePicker">
+                  <small class="text-danger" *ngIf="submitted && formDate.dateEnd.errors?.required"> End date is
+                    required.
+                    !</small>
+                  <nb-datepicker [startView]="'year'" #todayTimePicker></nb-datepicker>
+                </div>
+                <button type="submit" class="btn btnBgPrimary w-100 mt-4">Calculate</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 mb-3 d-flex justify-content-center">
+          <img loading="lazy" src="../../../../assets/images/undraw_date_picker_re_r0p8.svg" width="80%" height="90%"
+            alt="days calculator">
+        </div>
+        <div class="col-12">
+          <app-banner *ngIf="envirement"></app-banner>
+        </div>
+        <span #target></span>
+        <div class="col-md-5 d-flex justify-content-center">
+          <div class="border shadow bg-white p-5" *ngIf="checkForm">
+            <p class="bmi text-center">Difference between <span
+                class="font-weight-bold">{{calculeDate.value.startDate | date:"fullDate" }}</span> and <span
+                class="font-weight-bold">{{calculeDate.value.dateEnd | date:"fullDate" }}</span></p>
+            <p class="text-center font-weight-bold">The result is : <em>{{year}}</em> {{year > 1 ? "years" : "year"}}
+              and <em>{{monthF}}</em> {{monthF > 1 ? "months" : "month"}} and <em>{{dayF}}</em> days</p>
+            <div class="mt-4">
+              <!-- <p *ngIf="year > 0">Or {{year > 1 ? "years" : "year"}} : <em>{{year}}</em></p> -->
+              <p>Or <em>{{month}} {{month > 1 ? "months" : "month"}} and {{dayF}} {{dayF> 1 ? "days" : "day"}}</em></p>
+              <p>Or <em>{{week}} {{week > 1 ? "weeks" : "week"}} and {{dayW}} {{dayW > 1 ? "days" : "day"}}</em></p>
+              <p>Or <em>{{day}} {{day > 1 ? "days" : "day"}}</em></p>
+              <p>Or <em>{{hours}} hours</em></p>
+              <p>Or <em>{{minute}} minutes</em></p>
+              <p>Or <em>{{second}} seconds</em></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- start section add or subtract dates  -->
+        <div class="col-md-10 mt-3">
+          <div class="card">
+            <div class="card-header text-white text-center font-weight-bold">
+              <h2 class="text-white">Add to or Subtract from a Date</h2>
+            </div>
+            <div class="card-body example-items-col p-3">
+              <div *ngIf="errorAddOrSubDate" class="alert alert-danger w-75 mx-auto text-center" role="alert">
+                <span>
+                  {{errorAddOrSubDate}}
+                </span>
+              </div>
+              <form [formGroup]="AddOrSubtractDate" (ngSubmit)="AddOrSubDate(targetAddOrSubtract)">
+                <div class="col-md-8 col-12 mx-auto ">
+                  <div class="row d-flex justify-content-center">
+                    <div class="col-md-2 col-4 px-0">
+                      <label class="mt-2" for="Start date">Start date</label>
+                    </div>
+                    <div class="col-md-5 col-8 pr-0">
+                      <input class="form-control" placeholder="Start date" formControlName="addSubDate"
+                        [nbDatepicker]="addSubDateTimePicker">
+                      <nb-datepicker [startView]="'year'" #addSubDateTimePicker></nb-datepicker>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8 col-12 mx-auto mt-3">
+                  <div>
+                    <div class="row d-flex justify-content-center">
+                      <div class="col-4 px-0">
+                        <label class="mt-2" for="Date end">Add or Subtract</label>
+                      </div>
+                      <div class="col-md-3 col-8 pr-0">
+                        <nb-select class="nb-select-min-width" selected="+" status="basic" shape="semi-round" fullWidth
+                          (selectedChange)="changeSymbole($event)" required>
+                          <nb-option value="+">+</nb-option>
+                          <nb-option value="-">-</nb-option>
+                        </nb-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row my-4">
+                  <div class="col-3 pl-2 pr-2"><label for="Date end">Years</label>
+                    <input class="form-control" type="number" placeholder="years" formControlName="years">
+                  </div>
+                  <div class="col-3 pl-2 pr-2"><label for="Date end">Months</label>
+                    <input class="form-control" type="number" placeholder="months" formControlName="months">
+                  </div>
+                  <div class="col-3 pl-2 pr-2"><label for="Date end">Weeks</label>
+                    <input class="form-control" type="number" placeholder="weeks" formControlName="weeks">
+                  </div>
+                  <div class="col-3 pl-2 pr-2"> <label for="Date end">Days</label>
+                    <input class="form-control" type="number" placeholder="days" formControlName="days">
+
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btnBgPrimary w-100 widthSelectDate">Calculate</button>
+                </div>
+                <span #targetAddOrSubtract></span>
+              </form>
+            </div>
+          </div>
+          <!-- <div class="col-12">
+              <app-banner *ngIf="envirement"></app-banner>
+            </div> -->
+          <div class="col-12 my-3" *ngIf="showResultAddOrSubtract">
+            <div class="border shadow bg-white p-4">
+              <p>The result is: <em>{{resultAddOrSubtract | date:'fullDate'}}</em></p>
+              <p>
+                After add
+                <em>{{AddOrSubtractDate.value.years ? AddOrSubtractDate.value.years : 0}}</em>
+                {{AddOrSubtractDate.value.years > 1 ? "years" : "year" }},
+                <em>{{AddOrSubtractDate.value.months ? AddOrSubtractDate.value.months: 0}}</em>
+                {{AddOrSubtractDate.value.months > 1 ? "months" : "month" }},
+                <em>{{AddOrSubtractDate.value.weeks ? AddOrSubtractDate.value.weeks : 0}}</em>
+                {{AddOrSubtractDate.value.weeks > 1 ? "weeks" : "week" }} and
+                <em>{{AddOrSubtractDate.value.days ? AddOrSubtractDate.value.days : 0}}</em>
+                {{AddOrSubtractDate.value.days > 1 ? "days" : "day" }}
+              </p>
+              <div class="row">
+
+                <div class="col-md-6 col-12">
+                  <div>
+                    <div class="headerNebular">
+                      <p>Selected date: <em>{{ selectedDate | date:'fullDate' }}</em></p>
+                    </div>
+                    <!-- <div>
+                        <nb-calendar size="large" [date]="selectedDate" [filter]="filterSelectedDate"
+                          showWeekNumber="false">
+                        </nb-calendar>
+                      </div> -->
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <div>
+                    <div class="headerNebular">
+                      <p>Result date: <em>{{ resultAddOrSubtract | date:'fullDate' }}</em></p>
+                    </div>
+                    <!-- <div>
+                        <nb-calendar size="large" [filter]="filterDateResult" [(date)]="resultAddOrSubtract"
+                          showWeekNumber="false">
+                        </nb-calendar>
+                      </div> -->
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-other-calculator-health eleminateCalculator="dc"></app-other-calculator-health>
+      <p class="text-secondary text-center my-1 font-weight-bold" style="font-size: 24px;">Learn more about date
+        Calculator</p>
+      <div class="row border shadow bg-white my-4">
+        <div class="col-md-12 mx-2 my-4">
+          <h2 class="text-secondary">Date calculator</h2>
+          <p>There is a date calculator that calculates and shows the difference in years, months, weeks and days
+            between the 'Start Date' and 'End Date'.
+            According to this date calculator, the week begins on 'Monday' and concludes 'Sunday'.
+          </p>
+          <h2 class="text-secondary">Date truncation or expansion</h2>
+          <p>In the 'Start Date' area and the ones below it, you may enter the date you want to determine how much
+            behind or how far ahead the date will be. It shows the date and the day of the week that a certain date
+            occurs on.</p>
+          <h2 class="text-secondary">What exactly is a date calculator?</h2>
+          <p>You can use a date calculator to figure out how many days pass between two specific dates, how many days
+            have passed since your birth or since you started a job, how many days remain until the next Cricket World
+            Cup or the next Lok Sabha elections, and many more such calculations using a date calculator.</p>
+          <h2 class="text-secondary">The short history of conventional time</h2>
+          <p>People all throughout the globe used to plan their days and weeks according to the phases of the moon and
+            the seasons, long before the creation of such inventive devices as the date-to-date
+            calculator.Historically, the first day of the Roman month was marked by a new moon, thus the name
+            "calendar," which is derived from the Latin calendar. </p>
+          <p>'Clare' means "to proclaim," or "to call out."' As soon as they watched the new moon rise over the
+            Capitoline hill, the priests would proclaim the next month's countdown. The kalendaria, a book of
+            accounts, had to be paid off on that day.</p>
+          <p>In 46 B.C., Julius Caesar took control of the Roman government and sought to reorganize the Roman
+            calendar. Because the Roman Lunar Calendar only had 355 days, the Pontifex Maximus (also Caesar) had to
+            keep track of it and add days as needed to keep it in line with the seasons. He had been waging a civil
+            war, thus by 46 B.C. the Pontifex Maximus was three months behind on his duties.</p>
+          <p>Inspired by Egypt's solar calendar after spending some time there, Caesar created his own calendar in
+            Rome. His Roman solar calendar was created in collaboration with an Egyptian astronomer named Sosigenes of
+            Alexandria. </p>
+          <p>Since February was considered an unfortunate month in the Roman calendar, the five additional festival
+            days in the Egyptian calendar were spread out across twelve 30-day months instead of being given to a
+            single five-day month in the Roman calendar. Even though the year was 365.25 days long, they also added an
+            additional leap day in February every four years since they were aware of this fact. </p>
+          <p>As a result, the calendar could no longer be manipulated arbitrarily by politicians for malicious ends,
+            and time would flow unhindered by human interference.</p>
+          <p>Despite its flaws, the new Roman (or Julian) calendar was far from flawless. High-tech methods were used
+            to manufacture 365.25 days in the calendar year There are really 365.24219 days in a year, alas. Calendars
+            were given an extra day every 128 years because of this. </p>
+          <p>Those clergy members who wanted Easter to be celebrated at the same time as the early church were enraged
+            by this little shift in the date of Easter. Eventually, the Pope was able to hear the growing din. It was
+            Pope Gregory XIII. He enlisted the help of a few mathematicians to investigate.</p>
+          <p>According to the mathematicians, a little over 11 minutes of error meant that the calendar had three
+            extra years every 400 years. Therefore, mathematicians made an amendment to ensure that leap years would
+            no longer occur, except if the year was a multiple of 400, in which case the leap day would be maintained
+            as originally intended. </p>
+          <p>The calendar would be out of date in 3216 years if this were the case. By the end of 1582, Catholic
+            Europe had embraced the calendar as a result of a Papal Bull from the Pope.</p>
+          <p>The calendar was first opposed by Protestant nations. It wasn't until 1752 that Great Britain and her
+            colonies began using it, and Greece was the latest European nation to adopt it in 1923.</p>
+          <p>Most nations now use the Gregorian calendar, which was introduced in 1582. Afghanistan, Iran, Ethiopia,
+            and Nepal are the only outliers.</p>
+          <h2 class="text-secondary">How are the calculators above put to use?</h2>
+          <p>The first calculator's mode of operation</p>
+          <p>The first calculator allows you to compute the difference between two dates, where the first date is
+            referred to as the 'Start Date' and the second is referred to as the 'End Date'. Initially, both fields
+            show the current date.</p>
+          <p>The 'Start Date' may be a date in the past, and the 'End Date' can be a date in the future, and the user
+            can see how far away the future date is from the current date. For those who like, they may input both
+            dates and compare the difference between them to see how much time has passed.</p>
+          <p>The difference in time is represented in calendar days, and the outcome is shown accordingly. A user may
+            further choose 'Include End Day (add 1 Day)', which will add an additional day to the discrepancy, by
+            selecting the box.</p>
+          <p>According to this date calculator, the week begins on 'Monday' and concludes 'Sunday'.</p>
+          <h2 class="text-secondary">Using the second calculator's working technique</h2>
+          <p>It may be used to add or remove a certain number of years, months, weeks or days, singly or in
+            combination, from a specific date that is indicated by the field 'Start Date' This field is initially set
+            to reflect the current date. Users may insert a date in that box if they so like.</p>
+          <p>Users must now enter the number of years, months, weeks, and days, or any other characteristic, into the
+            corresponding input areas, according to their preferences. In order to acquire a result, users must choose
+            either "Add +" or "Subtract-" from the appropriate menu and press "Calculate" to get the answer.</p>
+          <p>The output shows a date and day that is either before to or subsequent to the 'Start Date,' depending on
+            the data entered.</p>
+          <p>An whole week begins and finishes on "Monday" according to this date calculator, which uses the following
+            methodology:</p>
+          <p>In India, there are many different kinds of calendars.</p>
+          <p>India, a melting pot of civilizations, is home to individuals from a wide range of ethnic backgrounds and
+            religious beliefs. Thus, Indians have developed a wide variety of religious, cultural, and governmental
+            calendars as a consequence of this. The Saka Samvat, Vikram Samvat, the Hijri calendar, and the Georgian
+            calendar are some of the most often used calendars in India.</p>
+          <p>In the Satavahana dynasty, the Saka Samvat Hindu calendar is said to have been introduced. In 1957, the
+            'Indian National Calendar' was established as a 365-day and 12-month calendar, comparable to those used
+            for governmental purposes. </p>
+          <p> When it comes to new year's celebrations in the Saka Samvat calendar, it starts on the first day of the
+            "Chaitra" month, which is March 22 in the regular year, or on the first day of March 21 in leap years.</p>
+          <p>The Vikram Samvat and the Hijri calendar each have their own set of peculiarities. It is a Hindu calendar
+            based on the movement of the moon. In a year, there are 354 days, and there are 12 months. </p>
+          <p> Shukla Paksha, which begins with a new moon, and Krishna Paksha, which begins with a full moon, are the
+            two phases of this calendar. The Islamic Hijri calendar contains 354 days and is based on the lunar
+            calendar. Ramadan and Hajj are two major Islamic ceremonies that are determined by this calendar.</p>
+          <h2 class="text-secondary">Counting days between dates is a common occurrence in a variety of contexts.</h2>
+          <p>Check out the date calculator if you need to know:</p>
+          <ul>
+            <li>The number of days till a deadline or test.</li>
+            <li>school year length is an example of an event duration.</li>
+            <li>the number of years you've been alive.</li>
+            <li>In the future, when you'll be (or were) a billion seconds old</li>
+            <li>There are a few more days to go until a long anticipated event, such as a wedding or vacation.</li>
+            <li>how long it's been since a certain incident.</li>
+            <li>which weekday it is on a certain day.</li>
+            <li>your due date, or the day you were conceived.</li>
+            <li>Your menstrual cycle or the time you ovulate.</li>
+            <li>Subtractors add the number of days/weeks/months/years, e.g. you want to know when your six-week
+              training plan ends and the next one begins.</li>
+          </ul>
+          <h2 class="text-secondary">The official calendar is utilized for all government functions.</h2>
+          <p>The Georgian calendar, a modified variant of the Julian calendar, is officially used in India and a
+            number of other nations throughout the globe. An extra day is added at the conclusion of a year for leap
+            years under this calendar. </p>
+          <p>These 12 months are divided into different lengths based on the calendar year's total days. Except for
+            February, which has 28 days in a regular year and 29 days in a leap year, every month has either 30 or 31
+            days.</p>
+        </div>
+      </div>
+    </div>
+    <ngx-json-ld [json]="schema"></ngx-json-ld>
+  </nb-layout-column>
+</nb-layout>

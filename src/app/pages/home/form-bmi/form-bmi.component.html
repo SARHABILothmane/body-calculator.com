@@ -1,0 +1,217 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-md-6 mt-4">
+    <div class="card">
+      <div class="card-header text-center">BMI calculator</div>
+      <div class="card-body example-items-col">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <button class="nav-link" (click)="tabsSet('Metric')"
+              [ngClass]="{'active' : switchTabs==='Metric' }">Metric</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" (click)="tabsSet('Imperial')"
+              [ngClass]="{'active' : switchTabs==='Imperial' }">Imperial</button>
+          </li>
+        </ul>
+        <div class="metric" *ngIf="switchTabs==='Metric'">
+          <div *ngIf="error" class="alert alert-danger mx-auto mt-2 text-center" role="alert">
+            <span>
+              {{error}}
+            </span>
+          </div>
+          <form [formGroup]="calculeForm" (ngSubmit)="claculteBmi(target)">
+            <div class="mb-3">
+              <label for="Age">Age</label>
+              <input class="form-control" type="number" nbInput fullWidth formControlName="age" status="basic"
+                placeholder="Age" [(ngModel)]="modelsBmi.age">
+              <small class="text-danger" *ngIf="submitted && formBmi['age'].errors?.['required']">Age is required.
+                !</small>
+              <small class="text-danger" *ngIf="submitted && formBmi['age'].errors?.['min']">Please provide an age
+                between 5
+                and
+                100.
+                !</small>
+              <small class="text-danger" *ngIf="submitted && formBmi['age'].errors?.['max']">Please provide an age
+                between 5 and 100.
+                !</small>
+            </div>
+            <div class="mb-3">
+              <label for="Height">Height<em class="" *ngIf="modelsBmi.height"> : Cm</em></label>
+              <input class="form-control" type="number" nbInput formControlName="height" fullWidth status="basic"
+                placeholder="cm" [(ngModel)]="modelsBmi.height">
+              <small class="text-danger" *ngIf="submitted && formBmi['height'].errors?.['required']">Height is
+                required !</small>
+            </div>
+            <div class="mb-3">
+              <label for="Weight">Weight <em class="" *ngIf="modelsBmi.weight"> : Kg</em></label>
+              <input class="form-control" type="number" nbInput formControlName="weight" fullWidth status="basic"
+                placeholder="kg" [(ngModel)]="modelsBmi.weight">
+              <small class="text-danger" *ngIf="submitted && formBmi['weight'].errors?.['required']">Weight is
+                required !</small>
+            </div>
+            <button type="submit" class="btn btnBgPrimary w-100">Calculate</button>
+          </form>
+        </div>
+        <div class="imperial" *ngIf="switchTabs==='Imperial'">
+          <div *ngIf="error" class="alert alert-danger mx-auto mt-2 text-center" role="alert">
+            <span>
+              {{error}}
+            </span>
+          </div>
+          <form [formGroup]="calculeFormImperial" (ngSubmit)="claculteBmiImperiale(target)">
+            <div class="mb-3">
+              <label for="Age">Age</label>
+              <input class="form-control" type="number" nbInput fullWidth formControlName="age" status="basic"
+                placeholder="Age" [(ngModel)]="modelsBmi.age">
+              <small class="text-danger" *ngIf="submitted && formBmiImeprial['age'].errors?.['required']">Age is
+                required.
+                !</small>
+              <small class="text-danger" *ngIf="submitted && formBmiImeprial['age'].errors?.['min']">Please provide an
+                age
+                between 5
+                and
+                100.
+                !</small>
+              <small class="text-danger" *ngIf="submitted && formBmiImeprial['age'].errors?.['max']">Please provide an
+                age
+                between 5
+                and
+                100.
+                !</small>
+            </div>
+            <div class="mb-3 ">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <label for="Height">Height<em class=""> : Feet</em></label>
+                  <!-- <input type="number" nbInput formControlName="hFeet" fullWidth status="basic" placeholder="feet"
+                      [(ngModel)]="modelsBmi.heightImperial" (ngModelChange)="onChange($event)"> -->
+                  <input class="form-control" type="number" nbInput formControlName="hFeet" fullWidth status="basic"
+                    placeholder="feet" (value)="calculateHeightImperial(modelsBmi.heightImperial)">
+
+                  <small class="text-danger" *ngIf="submitted && formBmiImeprial['hFeet'].errors?.['required']">Height
+                    of
+                    feet is
+                    required !
+                  </small>
+                </div>
+                <div class="">
+                  <label for="">Height<em class=""> : inches</em></label>
+                  <input class="form-control" type="number" nbInput formControlName="heightImperial" fullWidth
+                    status="basic" placeholder="inches">
+                  <small class="text-danger"
+                    *ngIf="submitted && formBmiImeprial['heightImperial'].errors?.['required']">Height of inches is
+                    required !</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="Weight">Weight <em class="" *ngIf="modelsBmi.weightImperial"> : Pounds</em></label>
+              <input class="form-control" type="number" nbInput formControlName="weightImperial" fullWidth
+                status="basic" placeholder="Pounds" [(ngModel)]="modelsBmi.weightImperial">
+              <small class="text-danger" *ngIf="submitted && formBmiImeprial['weightImperial'].errors?.['required']">
+                Weight is required !</small>
+            </div>
+            <button type="submit" class="btn btnBgPrimary w-100">Calculate</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <!-- <app-banner *ngIf="envirement"></app-banner> -->
+  </div>
+  <span #target></span>
+  <div *ngIf="bmi" class="col-md-6 bg-white">
+    <div class="d-flex justify-content-between my-2">
+      <p class="bmi" *ngIf="bmi">Bmi = {{bmi | number}} kg/m<sup>2</sup></p>
+      <p class="bmi">{{message}}</p>
+    </div>
+    <table class="table" *ngIf="addCataloge && checkAge >= 20">
+      <!-- <table class="table border"> -->
+      <thead class="bg-secondary">
+        <tr>
+          <th scope="col">Category</th>
+          <th scope="col">BMI range - kg/m<sup>2</sup></th>
+          <!-- <th scope="col">Rslt<sup>2</sup></th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr [class.msg]="message === 'Severe thinness'">
+          <!-- <td scope="row" [class.msg]="message === 'Severe thinness'">Severe thinness</td> -->
+          <td scope="row">Severe thinness</td>
+          <td>
+            <!-- <nb-icon nbSuffix icon="chevron-left-outline" pack="eva"></nb-icon> -->
+            &lt; 16
+          </td>
+        </tr>
+        <tr [class.msg]="message === 'Moderate thinness'">
+          <td scope="row">Moderate thinness</td>
+          <td>16 - 17</td>
+        </tr>
+        <tr [class.msg]="message === 'Mild thinness'">
+          <td scope="row">Mild thinness</td>
+          <td>17 - 18.5</td>
+        </tr>
+        <tr [class.msg]="message === 'Healthy weight'">
+          <td scope="row">Healthy weight</td>
+          <td>18.5 - 24.9</td>
+        </tr>
+        <tr [class.msg]="message === 'Overweight'">
+          <td scope="row">Overweight</td>
+          <td>25 - 29.9</td>
+        </tr>
+        <tr [class.msg]="message === 'Obese class Ⅰ'">
+          <td scope="row">Obese class <span>&#8544;</span> </td>
+          <td>30 - 34.9</td>
+        </tr>
+        <tr [class.msg]="message === 'Obese class Ⅱ'">
+          <td scope="row">Obese class <span>&#8545;</span></td>
+          <td>35 - 39.9</td>
+        </tr>
+        <tr [class.msg]="message === 'Obese class Ⅲ'">
+          <td scope="row">Obese class <span>&#8546;</span></td>
+          <td>
+            &gt; 40
+          </td>
+          <!-- <td>
+                <nb-icon nbSuffix icon="chevron-left-outline" pack="eva"></nb-icon>40 and above
+              </td> -->
+        </tr>
+      </tbody>
+    </table>
+    <table class="table" *ngIf="addCataloge && checkAge < 20">
+      <!-- <table class="table border"> -->
+      <thead class="bg-secondary">
+        <tr>
+          <th scope="col">Category</th>
+          <th scope="col">Percentile Range</th>
+          <!-- <th scope="col">Rslt<sup>2</sup></th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr [class.msg]="message === 'Underweight'">
+          <!-- <td scope="row" [class.msg]="message === 'Severe thinness'">Severe thinness</td> -->
+          <td scope="row">Underweight</td>
+          <td>
+            &lt; 5 %
+          </td>
+        </tr>
+        <tr [class.msg]="message === 'Healthy weight'">
+          <td scope="row">Healthy weight</td>
+          <td>5 - 85 %</td>
+        </tr>
+        <tr [class.msg]="message === 'At risk of overweight'">
+          <td scope="row">At risk of overweight</td>
+          <td>85 - 95 %</td>
+        </tr>
+        <tr [class.msg]="message === 'Overweight'">
+          <td scope="row">Overweight</td>
+          <td>
+            &gt; 95 %
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

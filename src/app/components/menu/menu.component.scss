@@ -1,0 +1,216 @@
+@import '../../../variables.scss';
+@import '../../../mediaqueries.scss';
+
+// .logo{
+//   width: 100px !important;
+// }
+
+#menu-section {
+  background: linear-gradient(90deg, color(primary) 0%, color(primary-light) 35%, color(blue-primary) 100%);
+  .list-item {
+    font-family: font(font-family-regular);
+    font-weight: bolder;
+    font-size: 18px;
+  }
+  a {
+    text-decoration: none;
+  }
+
+  .list {
+    list-style: none;
+    margin-bottom: 0;
+
+    .list-item {
+      margin: 0 10px;
+      padding: 20px 0;
+      @include md-device {
+        font-size: 13px;
+      }
+    }
+  }
+
+  .list li a:hover,
+  .list li.active a {
+    font-family: font(font-family-regular);
+    border-bottom: 3.5px solid color(blue-primary);
+    padding-bottom: 4px;
+    color: color(primary);
+  }
+
+
+  .linkActiveDropDown{
+    color: color(primary);
+  }
+
+  /////
+
+
+  /////
+  .active {
+    font-family: font(font-family-regular);
+    color: color(title-color);
+    border-bottom: 3.5px solid color(title-color);
+    padding-bottom: 4px;
+  }
+
+  .candidat-btn {
+    @include md-device {
+      font-size: 10px !important;
+    }
+  }
+
+  .sidebar {
+    height: 150%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    // padding-top: 60px;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+  }
+
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: -100px;
+    background-color: #f9f9f9;
+    min-width: 260px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5%;
+    padding: 12px 16px;
+    z-index: 1;
+    font-family: font(font-family-regular);
+    font-weight: bolder;
+    font-size: 14px;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+
+
+
+  /* The sidebar links */
+
+  .sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .mobile-header {
+    display: none !important;
+  }
+
+  @include laptop-breakpoint {
+    .mobile-header {
+      display: flex !important
+    }
+
+    .web-header {
+      display: none !important
+    }
+  }
+
+  @media only screen and (min-width: 992px) and (max-width: 1100px) {
+    .search-down {
+      right: 4%;
+      top: 75px;
+      height: 150px;
+      width: 195px;
+      overflow-y: auto;
+    }
+  }
+
+  @media only screen and (min-width: 1101px) and (max-width: 1200px) {
+    .search-down {
+      right: 8.5%;
+      top: 75px;
+      height: 150px;
+      width: 195px;
+      overflow-y: auto;
+    }
+  }
+
+  @media only screen and (min-width: 1201px) and (max-width: 1300px) {
+    .search-down {
+      right: 5%;
+      top: 75px;
+      height: 150px;
+      width: 295px;
+      overflow-y: auto;
+    }
+  }
+
+  @media only screen and (min-width: 1301px) and (max-width: 1400px) {
+    .search-down {
+      right: 9%;
+      top: 75px;
+      height: 150px;
+      width: 295px;
+      overflow-y: auto;
+    }
+  }
+
+  @media only screen and (min-width: 1401px) and (max-width: 1500px) {
+    .search-down {
+      right: 12%;
+      top: 75px;
+      height: 150px;
+      width: 295px;
+      overflow-y: auto;
+    }
+  }
+
+  @media only screen and (min-width: 1501px) and (max-width: 1600px) {
+    .search-down {
+      right: 13.5%;
+      top: 75px;
+      height: 150px;
+      width: 295px;
+      overflow-y: auto;
+    }
+  }
+
+
+  .nb-theme-custom-theme [nbButton].size-medium nb-icon {
+    height: 3.25rem !important;
+    width: 3.25rem !important;
+  }
+
+}
+
+.sidebarBackground {
+  pointer-events: auto;
+  transition: opacity .3s cubic-bezier(0,0,0.3,1);
+  left: -10px;
+  bottom: 0;
+  display: block;
+  position: fixed;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  z-index: 2;
+  content: "";
+}
+
+.colorBlack{
+  color: #222b45;
+}

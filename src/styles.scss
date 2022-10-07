@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+:root {
+    /* --orange: #FFA55A !important; */
+    --primary: #3C7DB7 !important;
+  }
+
+.btnBgPrimary{
+    background-color: var(--primary) !important;
+    text-transform: uppercase;
+    color: white !important;
+    border-radius: 12px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    padding: 8px 0 !important;
+  }
+  .card-header{
+    background-color: var(--primary) !important;
+    text-transform: uppercase;
+    color: white !important;
+    // border-radius: 12px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    padding: 8px 0 !important;
+}
