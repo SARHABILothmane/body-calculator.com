@@ -6,19 +6,19 @@ import { Component, AfterViewInit } from '@angular/core';
 })
 export class BannerComponent implements AfterViewInit {
   constructor() {
-   }
+  }
 
-      ngAfterViewInit() {
-        setTimeout(() => {
-            try {
-                (window['adsbygoogle'] = window['adsbygoogle'] || []).push({
-                    overlays: {bottom: true}
-                });
-            } catch (e) {
-                console.error(e);
-            }
-        }, 0);
-    }
+  ngAfterViewInit() {
+    setTimeout(() => {
+      try {
+        (window['adsbygoogle'] = window['adsbygoogle'] || []).push({
+          overlays: { bottom: true }
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }, 0);
+  }
   // ngOnInit(): void {
   // }
 
