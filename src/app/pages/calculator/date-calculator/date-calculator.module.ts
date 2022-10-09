@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { DateCalculatorComponent } from './date-calculator.component';
 import { OtherCalculatorModule } from '../../other-calculator/other-calculator.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BannerModule } from 'src/app/shared/banner/banner.module';
 
 const routes: Routes = [
   { path: "", component: DateCalculatorComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
     NgxJsonLdModule,
     OtherCalculatorModule,
     RouterModule.forChild(routes),
+    BannerModule,
   ]
 })
 export class DateCalculatorModule { }

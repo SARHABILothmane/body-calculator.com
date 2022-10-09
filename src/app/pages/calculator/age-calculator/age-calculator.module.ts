@@ -1,3 +1,4 @@
+import { BannerModule } from './../../../shared/banner/banner.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgeCalculatorComponent } from './age-calculator.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
     NgxJsonLdModule,
     OtherCalculatorModule,
     RouterModule.forChild(routes),
+    BannerModule,
   ]
 })
 export class AgeCalculatorModule { }

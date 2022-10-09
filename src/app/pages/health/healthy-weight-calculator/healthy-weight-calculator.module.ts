@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxJsonLdModule } from 'ngx-json-ld';
 import { OtherCalculatorModule } from '../../other-calculator/other-calculator.module';
+import { BannerModule } from 'src/app/shared/banner/banner.module';
 
 const routes: Routes = [
   { path: "", component: HealthyWeightCalculatorComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
     NgxJsonLdModule,
     OtherCalculatorModule,
     RouterModule.forChild(routes),
+    BannerModule,
   ]
 })
 export class HealthyWeightCalculatorModule { }
