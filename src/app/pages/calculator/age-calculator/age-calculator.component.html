@@ -1,0 +1,233 @@
+<section>
+  <div class="container">
+    <div class="col-12 px-0">
+      <h1 class="text-secondary text-center mb-3 px-2">Age calculator by date of birth</h1>
+      <div class="flexMobile">
+        <!-- <app-banner *ngIf="envirement"></app-banner> -->
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-12 col-md-6">
+        <img loading="lazy" class="mb-3" src="../../../../assets/images/age-caculator.svg" width="100%" height="80%"
+          alt="calculate age from date of birth">
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="card">
+          <div class="card-header text-white text-center font-weight-bold">Calculate age from date of birth</div>
+          <div class="card-body example-items-col">
+            <div *ngIf="error" class="alert alert-danger w-75 mx-auto text-center" role="alert">
+              <span>
+                {{error}}
+              </span>
+            </div>
+            <form [formGroup]="calculeAge" (ngSubmit)="CalculateAge(target)">
+              <label for="Birthday">Date of birth</label>
+              <input class="form-control" placeholder="Pick Birthday" formControlName="birthday" type="date"
+                name="Birthday" id="Birthday">
+              <!-- <input class="form-control" nbInput fullWidth placeholder="Pick Birthday" formControlName="birthday"
+                [nbDatepicker]="birthdayTimePicker">
+              <nb-datepicker [startView]="'year'" #birthdayTimePicker></nb-datepicker> -->
+              <div>
+                <small class="error mt-1" *ngIf="birthday.invalid && (birthday.dirty || birthday.touched)">
+                  Date of birth is required !
+                </small>
+              </div>
+              <label class="mt-3" for="Today">Age at the date of</label>
+              <input class="form-control" placeholder="Pick Birthday" formControlName="today" type="date" name="today"
+                id="today">
+              <!-- <input class="form-control" nbInput fullWidth placeholder="Pick a date" formControlName="today"
+                [nbDatepicker]="todayTimePicker">
+              <nb-datepicker [startView]="'year'" #todayTimePicker></nb-datepicker> -->
+              <small class="error mt-1" *ngIf="today.invalid && (today.dirty || today.touched)">
+                Age at the date of is required !
+              </small>
+              <button type="submit" class="btn btnBgPrimary w-100 mt-4">Calculate</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <!-- <app-banner *ngIf="envirement"></app-banner> -->
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <div class="my-3" *ngIf="checkForm">
+          <div class="border rounded shadow bg-white p-4">
+            <!-- <p class="bmi text-center font-weight-bold">Resultat of you calculator</p> -->
+            <p>Your age between <span class="font-weight-bold">{{birthday.value | date:"fullDate" }}</span> and <span
+                class="font-weight-bold">{{today.value | date:"fullDate" }}</span></p>
+            <p>The result is: <em>{{year}}</em> <span *ngIf="year > 1"> years</span> <span *ngIf="year < 2">
+                year</span> and <em>{{monthF}}</em> <span *ngIf="monthF > 1"> months</span><span *ngIf="monthF < 2">
+                month</span> and <em>{{dayF}}</em> <span *ngIf="dayF > 1"> days</span><span *ngIf="dayF < 2">
+                day</span></p>
+            <div class="row mt-4">
+              <div class="col-12">
+                <!-- <p class="rsltP" *ngIf="year != 0">Year: <em>{{year | number}}</em></p> -->
+                <p>Or <em>{{month}} {{month > 1 ? "months" : "month"}} and {{dayF}} {{dayF> 1 ? "days" : "day"}}</em>
+                </p>
+                <p>Or <em>{{week}} {{week > 1 ? "weeks" : "week"}} and {{dayW}} {{dayW > 1 ? "days" : "day"}}</em></p>
+                <p>Or <em>{{day}} {{day > 1 ? "days" : "day"}}</em></p>
+                <p>Or <em>{{hours}} hours</em></p>
+                <p>Or <em>{{minute}} minutes</em></p>
+                <p>Or <em>{{second}} seconds</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div #target></div>
+    </div>
+    <app-other-calculator-time eleminateCalculator="ac"></app-other-calculator-time>
+    <p class="text-secondary text-center my-5 font-weight-bold" style="font-size: 24px;">Learn more about Age
+      Calculator</p>
+    <div class="row border shadow bg-white mt-4">
+      <div class="col-md-12 mx-2 mt-4 p-4">
+        <p>"How old am I currently?" is a good place to start. Please consult our chronological age calculator for any
+          questions
+          you may have, such as "How old were I upon the date?" or "How old can I be in 2050?"</p>
+        <p>In order to answer your age-related inquiries, you may pick from several time units (from milliseconds to
+          years) in the precise age calculator:</p>
+        <ul>
+          <li>How old am I?</li>
+          <li>It's been how many days since my birth.</li>
+          <li>How old am I, exactly?</li>
+          <li>There are a few weeks left in my pregnancy.</li>
+        </ul>
+        <p>As soon as you've figured out your chronological age, don't forget to have a look at how old your dog or
+          cat or pet bird is in human years.</p>
+        <h2 class="text-secondary">How old am I?</h2>
+        <p>The length of time that anything has existed is referred to as its age.</p>
+        <p>When a person is born, they are said to be at an age. The gestational age refers to the period between
+          conception and birth (the age of a pregnancy is counted from conception).</p>
+        <p>A newborn is considered to be one year old on the first anniversary of their birth in the majority of
+          countries throughout the globe. However, age is reckoned differently in certain countries (especially in
+          Korea), such as the United States. Here, we'll stick with a system that is widely used.</p>
+        <p>Find out how old you really are by using the age calculator we've provided below.</p>
+        <h2 class="text-secondary">Today, I'm how old? Use an online chronological age calculator to find out your
+          age.</h2>
+        <p>What year were you born? Use the age calculator and enter your date of birth to see how old you are now:
+        </p>
+        <ul>
+          <li>Enter the date of your birth into the age calculator's first box. Input the first three letters of the
+            month's name, day, comma, and year (e.g. "Oct 1, 1996"), or use the calendar icon to choose a date from
+            the drop-down menu.</li>
+          <li>Setting the time of your birth in advanced mode allows you to know your actual age in "tiny" units
+            (e.g., how old am I in seconds?). In the absence of a date, the age calculator will begin counting from
+            midnight on the day of your birth.</li>
+          <li>The date is now set to "today" in the calculator's third input box. Let's just leave it at that if
+            you're curious about how old you currently are.</li>
+          <li>You may answer a variety of questions by selecting the appropriate unit of measurement (e.g., "How old
+            am I in months?" "How old am I in weeks?" "How old am I in seconds?").</li>
+          <li>A person's chronological age is determined by adding up all of the days and nights since birth,
+            including the present moment.</li>
+        </ul>
+        <p>If you choose "years/months/days," the outcome will be accurate. Assume that one month has passed since
+          the first month's selected date and that the second month's chosen date will be the same as the first
+          month's (e.g., 22.02 to 22.03). If you choose "months," we'll suppose that each month has an average of
+          30.4375 days. We don't take leap years into account when using the "years" option.</p>
+        <h2 class="text-secondary">What year were you born? The date of birth is used to determine one's age.</h2>
+        <p>After that, we'll learn how to do it ourselves, without the use of a computerized age calculator.</p>
+        <p>Let's imagine you were born on December 5, 2000, and today is January 15, 2021. Let's go back in time and
+          make a tally:</p>
+        <ul>
+          <li>Begin with the day of your birth. Retrace your steps backwards in time and see how many more years you
+            have left till your previous birthday:</li>
+          <li>5.12.2020 was your most recent birthday. The years may be omitted:</li>
+          <li>5.12.2020 minus 5.12.2000 is equal to 20 years.</li>
+          <li>We've arrived at 5.12.2020. Try to add as many complete months to your timeline as possible, but don't
+            go too far into the future (stop before you reach today).</li>
+          <li>After one month of forward movement, we arrive at 5.01.2021 if this example is followed, hence we must
+            halt time travelling in months.</li>
+          <li>Add the days that are left. The year is 2021, and the date is 5.01.2021. We may simply deduct the
+            number of days till the end of the month:</li>
+          <li>10 days: 15 January 2021 - 5 January 2021</li>
+          <li>Assume you've completed steps 1 through 3. It is going to be two decades and ten days</li>
+        </ul>
+        <h2 class="text-secondary">How old am I in terms of days, weeks, months, or years?</h2>
+        <p>If you've ever thought to yourself, "How old am I?" How old am I in seconds? How old am I in days? This
+          calculator may be able to answer these questions for you!</p>
+        <p>Enter your date of birth, make sure you have today's date in the second box, then choose the chosen unit
+          in the last field of the age calculator to see how old you are in various units.</p>
+        <h2 class="text-secondary">When will I be in my mid-twenties?</h2>
+        <p>Future dates are counted the same way as prior dates. You must update the "Calculate age on" box from the
+          current date to the future date in order to use the age calculator.</p>
+        <ul>
+          <li>If your birthday is March 4, 2005, you were born on this day. How old will you be in 2050 if you're
+            wondering?</li>
+          <li>Set your birth date (you can type in "Mar 4, 2005").</li>
+          <li>"Jan 1, 2050" or "any other day in 2050" should be followed by "Calculate age on."</li>
+          <li>You'll be 44 years, 9 months, and 28 days old on the first of the year in 2050, according to the
+            online calculator.</li>
+        </ul>
+        <h2 class="text-secondary">How old are you if you were born in 1999?</h2>
+        <p>To get an approximation of someone's age if you don't know their precise birthday, subtract their birth
+          year from the current year (you can be off by one year either side).</p>
+        <p>For example, on January 10, 2021, it is 10.01.2021. Subtract a few years:</p>
+        <p>2021 minus 1999 equals 22.</p>
+        <p>In other words, if you were born in 1999, you'll be about 22 years old in 2021. However, if you were born
+          after 10.01 UTC on January 1st of this year, you will be officially 21 years old on that day. In the
+          perspective of the law, you'd be 21 at that point.</p>
+        <h2 class="text-secondary">Exactly how many days are there in 15 years?</h2>
+        <p>A simple way to find out how old you are if you're 15 is to input your birth date and the date you're
+          looking for into the age calculator. Then, choose "days" as the unit of time.</p>
+        <p>Use our time unit converter or enter two dates that are 15 years apart into our age calculator to convert
+          15 years to days. There are 5479 days between "Jan 1, 2000" and "Jan 1, 2015."</p>
+        <p><span>As an example - "At the time of this event, I was a...</span></p>
+        <p>When did I first realise that time is a relative concept?"</p>
+        <p>Opened a random page and discovered your journal, which had been stashed in the attic.</p>
+        <p>"3.02.1978</p>
+        <p>There will never be another day like this.. I used to believe that time was like a horizontal line that
+          ran from left to right. As far as I know, it's always the same, no matter where you are or what time of
+          day it is. That's what Mr. Brown told me today, and I'm going to take his word for it!"</p>
+        <p>Your progress has been rapid, but not sufficient. You've aged so swiftly, and it's hard to believe.
+          You've begun to wonder, "How old was I on this date?".. With little time to spare, you use our
+          chronological age calculator instead.</p>
+        <ul>
+          <li>You type in your birth date. Suppose you were born on April 25, 1962.</li>
+          <li>Please enter the following date from your journal: 3.02.1978. Thanks for your time (or type in "Feb 3,
+            1978").</li>
+          <li>It came back that you were 15 years, 9 months, and 8 days old...</li>
+        </ul>
+        <h2 class="text-secondary">Count how many days I've been alive.</h2>
+        <p>To figure out how old you are in days, use the following formula:</p>
+        <ul>
+          <li>Take the number of years since your last birthday and divide it by 365.</li>
+          <li>If you were born on September 15th, the first full month will expire on October 15th if 31 complete
+            months have elapsed since your previous birthday.</li>
+          <li>Find out how many days have passed since the previous full month.</li>
+          <li>How many leap years have you seen in your life thus far? (every year that divides by four).</li>
+          <li>All of the aforementioned numbers should be tallied.</li>
+          <li>For the months of April, June, September, and November, deduct one, and for the month of February,
+            deduct three.</li>
+          <li>Congratulations on your birthday, and have a wonderful day!</li>
+        </ul>
+        <h2 class="text-secondary">Three years have how many months?</h2>
+        <p>There are exactly 36 months in a three-year period. It doesn't matter whether or not it's a leap year,
+          every year has the same number of months: 12.</p>
+        <h2 class="text-secondary">if I've been alive for 10,000 days, how old am I?</h2>
+        <p>138 or 139 days have passed since your twenty-seventh birthday, making your age 27. It all relies on the
+          number of leap years that have previously gone (the month of February, to be specific). Alternatively, we
+          may refer to you as 27 years, 4 months, and between 15 and 19 days of age (depending on which months have
+          passed).</p>
+        <h2 class="text-secondary">2017 was how many years ago?</h2>
+        <p>In 2021, the year 2017 was four years old. This time frame will be increased to five years in 2022.</p>
+        <h2 class="text-secondary">If I was born in 1983, what age do I have?</h2>
+        <p>As of 2021, you are either 37 or 38 years old. Whether or not you've had a birthday this year will affect
+          the precise number. You're 37 if you haven't. If so, you're 38 years old.</p>
+        <h2 class="text-secondary">If I'm 21, what year was I born?</h2>
+        <p>If you've already celebrated your birthday this year, you were born in 2000 and will turn 18 in 2021. As
+          a result, you must have been born in 1999.</p>
+        <h2 class="text-secondary">If I was born in 1964, how old am I?</h2>
+        <p>By the year 2021, you'll be 56 or 57 years old. Whether or not you've had a birthday this year will
+          affect the precise number. Unless you've already turned 56, the time is now. The answer is yes, and you're
+          57-years-old.</p>
+        <p>Add a few minutes to your day</p>
+        <p>Differences in ages</p>
+        <p>Anniversary… more than twenty-three</p>
+      </div>
+    </div>
+
+  </div>
+  <ngx-json-ld [json]="schema"></ngx-json-ld>
+</section>

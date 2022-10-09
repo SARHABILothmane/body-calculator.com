@@ -1,0 +1,284 @@
+<section>
+  <div class="container">
+    <div class="col-12">
+      <h1 class="text-secondary text-center pb-3 px-3">Basal metabolic rate BMR calculator</h1>
+      <div class="flexMobile">
+        <!-- <app-banner *ngIf="envirement"></app-banner> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 px-5 pb-5">
+        <img loading="lazy" src="../../../../assets/images/undraw_personal_trainer_ote3.svg" width="100%" height="100%"
+          alt="basal metabolic rate calculator">
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header text-white text-center font-weight-bold">BMR calculator</div>
+          <div class="card-body example-items-col">
+            <div *ngIf="error" class="alert alert-danger w-75 mx-auto text-center" role="alert">
+              <span>
+                {{error}}
+              </span>
+            </div>
+            <form [formGroup]="calculeBmr" (ngSubmit)="CalculateBmr(target)">
+              <div class="mb-3 d-flex justify-content-center">
+                <!-- <fa-icon *ngIf="checked == 'male'" class="social-icon ml-5" [icon]="faMale"></fa-icon>
+                    <fa-icon *ngIf="checked == 'female'" class="social-icon ml-5" [icon]="faFemale"></fa-icon> -->
+                <div class="mb-3 ml-3">
+                  <!-- <select placeholder="gender" [(selected)]="checked" required> -->
+                  <select class="form-select" placeholder="gender" selected="female" (change)="checkedGender($event)"
+                    required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label for="Age">Age</label>
+                <input class="form-control" type="text" nbInput fullWidth status="basic" shape="semi-round"
+                  placeholder="Age" formControlName="age">
+                <small class="text-danger" *ngIf="submitted && formBmr['age'].errors?.['required']">Age is required.
+                  !</small>
+                <small class="text-danger" *ngIf="submitted && formBmr['age'].errors?.['min']">Please provide an age
+                  between 5
+                  and
+                  100.
+                  !</small>
+                <small class="text-danger" *ngIf="submitted && formBmr['age'].errors?.['max']">Please provide an age
+                  between 5
+                  and
+                  100.
+                  !</small>
+              </div>
+              <label for="" class="mt-3">Height :</label>
+              <strong *ngIf="selectedHeight == 'cm'"> cm</strong>
+              <strong *ngIf="selectedHeight == 'm'"> Metres</strong>
+              <strong *ngIf="selectedHeight == 'in'"> Inches</strong>
+              <strong *ngIf="selectedHeight == 'ft'"> Feet</strong>
+              <!-- <nb-form-field class="mb-3"> -->
+              <div class="mb-3">
+                <div class="row">
+                  <div class="col-6">
+                    <input class="form-control" type="text" placeholder="Height" formControlName="height"
+                      [(ngModel)]="modelsBmr.height" IsDecimal>
+                    <small class="text-danger" *ngIf="submitted && formBmr['height'].errors?.['required']">Height is
+                      required !</small>
+                  </div>
+                  <div class="col-6 pl-0">
+                    <select class="form-select" placeholder="cm" selected="cm" (change)="heightSelect($event)" required>
+                      <option value="cm">cm</option>
+                      <option value="m">Metres (m)</option>
+                      <option value="in">Inches (in)</option>
+                      <option value="ft">Feet (ft)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!-- </nb-form-field> -->
+              <label for="">Weight :</label>
+              <strong *ngIf="selectedWeight == 'kg'"> kg</strong>
+              <strong *ngIf="selectedWeight == 'dag'"> Decagrams</strong>
+              <strong *ngIf="selectedWeight == 'lb'"> Pounds</strong>
+              <strong *ngIf="selectedWeight == 'oz'"> Ounces</strong>
+
+              <div class="mb-3">
+                <div class="row">
+                  <div class="col-6">
+                    <input class="form-select" type="number" nbInput formControlName="weight" placeholder="kg"
+                      [(ngModel)]="modelsBmr.weight" IsDecimal>
+                    <small class="text-danger" *ngIf="submitted && formBmr['weight'].errors?.['required']">Weight is
+                      required !</small>
+                  </div>
+                  <div class="col-6 pl-0">
+                    <select class="form-select" placeholder="kg" selected="kg" (change)="weightSelect($event)" required>
+                      <option value="kg">kg</option>
+                      <option value="dag">Decagrams (dag)</option>
+                      <option value="lb">Pounds (lb)</option>
+                      <option value="oz">Ounces (oz)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!-- <td>{{ data.DateofBirth | date: 'dd/MM/yyyy hh:mm a' }}</td> -->
+              <button type="submit" class="btn btnBgPrimary w-100">Calculate</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <!-- <app-banner *ngIf="envirement"></app-banner> -->
+      </div>
+
+      <div class="text-center mt-4 col-md-6 offset-md-3" *ngIf="bmr">
+        <div class=" cardResultDesigne">
+          <p class="text-secondary text-center bolder font-weight-bold" style="font-size: 24px;">Your result is:</p>
+          <p class="bmi text-center">BMR = {{bmr | number}} Calories/day</p>
+        </div>
+      </div>
+      <div #target></div>
+    </div>
+    <span class="mt-4">&nbsp;</span>
+    <app-other-calculator-health eleminateCalculator="bmr"></app-other-calculator-health>
+    <p class="text-secondary text-center my-1 font-weight-bold" style="font-size: 24px;">Learn more about Basal
+      metabolic rate Calculator</p>
+    <div class="row border shadow bg-white mt-4">
+      <div class="col-md-12 mx-2 mt-4 p-4">
+        <p>Considering how calorie-obsessed we have all become, the word "metabolism" immediately draws attention. In
+          the course of your work as a certified personal trainer, you may be questioned about this subject from time
+          to time.</p>
+        <p>Fat-to-fit or "flab-to-fab" is what the general public associates with increasing your metabolism. Enhanced
+          caloric expenditure, improved lean body mass, better fat utilization and total weight reduction are all
+          factors that contribute to this result</p>
+        <p>Considering the importance of our RMR, it's obvious that so much emphasis is paid to this. In the
+          meanwhile, let's examine the components of the overall daily energy expenditure before diving into RMR
+          (TDEE).
+          Articles like this:
+        </p>
+        <ul>
+          <li>Energy Consumption on a Daily Basis</li>
+          <li>When you're at rest, what is your metabolic rate?</li>
+          <li>Making use of the RM</li>
+          <li>RMR Unpredictable Factors</li>
+          <li>Constraints on RMR</li>
+          <li>Achieving Optimal Resting Metabolic Rate in Starvation States</li>
+        </ul>
+        <h2 class="text-secondary">Total Daily Energy Expenditure</h2>
+        <p>The term metabolism refers to the biological processes that are necessary to sustain life in scientific
+          terms. The average person's daily energy expenditure and how it affects the energy in vs. energy out
+          equation are the most important considerations.
+          There are three main parts to our TDEE:
+        </p>
+        <ul>
+          <li>At rest, your body needs a certain amount of energy, which is known as your resting metabolic rate
+            (RMR).</li>
+          <li>TEF: the energy cost of chewing, swallowing, digesting, absorption and storing food.</li>
+          <li>Energy expenditure from physical activity (TEPA) and non-exercise thermogenesis (NEAT) are two
+            components of the thermogenic impact of activity (TEPA).*</li>
+        </ul>
+        <p>The following is not a kind of exercise: There is a wide variety of activities that contribute to a
+          person's thermogenesis, from simply standing to fidget and moving about. NEAT is not the same as METS.</p>
+        <p>What is the RMR that we have? Is it up to us, or is it already set in stone? Let's take a closer look at
+          these issues.</p>
+        <p>The total amount of calories expended by your body when it is entirely at rest is known as your resting
+          metabolic rate. Inhalation, circulation, and organ function are all supported by RMR. A 1% increase in fat
+          mass results in a reduction of 0.01 kcal/min in the amount of calories burned per minute.</p>
+        <h2 class="text-secondary"><a href="https://en.wikipedia.org/wiki/Basal_metabolic_rate"
+            rel="noopener noreferrer" target="_blank">Basal metabolic rate Calculator</a></h2>
+        <p>Calculating one's energy consumption is easy using direct calorimetry, which measures the amount of heat
+          generated by a person housed in a tiny chamber. Indirect calorimetry uses gas analysis to estimate energy
+          expenditure by measuring oxygen usage rates.</p>
+        <p>These methods are costly, time-consuming, and difficult to get precise RMR estimations, despite the fact
+          that they are correct.
+          As a consequence, RMR estimation methods have become more accessible and inexpensive during the previous
+          century. They use a variety of methods to get this number.
+        </p>
+        <p>In today's world, mathematical formulae are among the most used ways. A calorie calculator may be found
+          online, via an app, or on a wearable device.
+          You may figure out your RMR by using this online calculator:
+          National Association of Sports Medicine's online calorie calculator
+        </p>
+        <h2 class="text-secondary"><a href="https://en.wikipedia.org/wiki/Harris%E2%80%93Benedict_equation"
+            target="_blank">Basal metabolic rate Calculator - Harris and Benedict Equation</a></h2>
+        <p>It is still commonly used today, thanks to the Harris and Benedict (H&B) equation established in 1918 and
+          updated in 1984.</p>
+        <p>established in 1918 and updated in 1984.
+          As a result, the terms "resting metabolic rate" and "basal energy expenditure" have come to be used
+          interchangeably, despite the fact that they were designed to assess different things.
+          Relative resting metabolic rate (RMR) is a less restrictive method of measuring resting metabolic rate (BMR)
+          after an overnight fast.
+        </p>
+        <p>Male and female H&B equations have been recalculated as follows:</p>
+        <ul>
+          <li>Over the course of their lives, men's weight, height, and age are all taken into account to come up
+            with their total body mass index (BMI).
+            447.593 + (9.247 kg + (3.098 cm + (4.330 years)) - (4.330 years)
+          </li>
+        </ul>
+        <p>BMR or RMR is the amount of calories a 38-year-old female, who is 5'6" (167.6 cm) tall and weighs 145
+          pounds (65.9 kg), burns per day.</p>
+        <h3>Mifflin-St Jeor Formula</h3>
+        <p>To provide a more accurate estimate of RMR, the Mifflin-St. Jeor formula was devised in the 1990s .</p>
+        <p>The equations for males and females are:</p>
+        <ul>
+          <li>A man's weight in kilograms is equal to his height in centimeters multiplied by his age in years. 10
+            kg + 6.25 cm + (5 years of age) = weight for women a total of 161</li>
+        </ul>
+        <p>The RMR for a girl would be 1,356 calories if the same example and calculation were used.</p>
+        <h3 class="">Potential Errors</h3>
+        <p>Over a one-year period, this miscalculation adds up to roughly six pounds of energy or body weight (i.e. 55
+          calories).</p>
+        <p>The assumption that all people of the same gender, age, height, and weight have the same RMR is likewise
+          incorrect, as these calculations assume. RMR is heavily influenced by your lean body mass, so keep an eye on
+          it at all times.</p>
+        <p>In spite of the fact that the Katch-McArdle and Cunningham formulae are derived from lean mass rather than
+          total body weight, they need an accurate assessment of lean mass.
+          These calculations include a wide range of errors, ranging from 10% to 36% in obese persons (H&B) .
+        </p>
+        <p>In spite of updated equations (such as Oxford equations), they are still susceptible to a variety of
+          errors.</p>
+        <h2 class="text-secondary">Uncontrollable RMR Factors - Basal metabolic rate Calculator</h2>
+        <p>Only a few things are beyond our control, including our age, our genes, and even our own biological
+          adaptations.</p>
+        <h3 class="">Age</h3>
+        <p>We should expect a 2-percentage-point decline in our resting metabolic rate (RMR) in the decade after peak
+          growth in both women and men (late teens to early twenties).</p>
+        <p>Assuming that RMR accounts for 60% to 75% of TDEE, this means that the typical adult consumes around 25 to
+          30 calories per day or about 212-to-3 pounds (1.1-1.4 kg) each year.</p>
+        <h3 class="">Genetics and Epigenetics</h3>
+        <p>Additionally, genetics and epigenetics may have a crucial influence. Scientists have found more than 100
+          genes that are linked to obesity.</p>
+        <p>Low satiety is connected with the FTO gene, which is associated with fat accumulation and obesity.</p>
+        <p>Consuming greater quantities, choosing fattier and sweeter meals, and snacking more often are all symptoms
+          of an eating disorder characterized by poor satiety.</p>
+        <p>RMR may be altered by as much as 160 calories per day by the FTO gene, which equates to almost 17 pounds
+          (7.5 kg) in a year.</p>
+        <p>Our genetic expression may be altered without altering our DNA sequence via epigenetics, a branch of
+          genetics.</p>
+        <p>Anxiety and depression are two of the most common mental health issues in the United States today.</p>
+        <p>For example, studies have shown that changes in TDEE may alter RMR by up to a few percentage points or 60
+          to 75 calories per day, depending on how food intake and metabolism are altered. Additionally, genetics and
+          epigenetics may have a crucial influence. Scientists have found more than 100 genes that are linked to
+          obesity.</p>
+        <p>Low satiety is connected with the FTO gene, which is associated with fat accumulation and obesity.</p>
+        <p>Consuming greater quantities, choosing fattier and sweeter meals, and snacking more often are all symptoms
+          of an eating disorder characterized by poor satiety.</p>
+        <p>Over the course of a year, this FTO gene may change RMR by up to 160 calories per day, which equates to
+          roughly 17 pounds (7.5 Kg).</p>
+        <p>The study of inheritable changes in our genetic expression that occur without altering our underlying DNA
+          sequence is known as epigenetics.</p>
+        <p>Regular and natural, it is impacted by factors such as age, environment, nutrition, location and lifestyle.
+        </p>
+        <p>For now, scientists are investigating the relationship between epigenetics and TDEE to see whether it
+          affects food intake or metabolic rate (RMR) by 5 to 10 percentage points, or 60 to 75 calories per day.</p>
+        <h2 class="text-secondary">Uncontrollable RMR Factors - Basal metabolic rate Calculator</h2>
+        <p>There is no limit to what may be done, although most fitness experts focus on exercise, macronutrients,
+          calories and other stimulants as their primary methods of weight loss.</p>
+        <h3 class="">Stimulants</h3>
+        <p>Caffeine and capsaicin, for example, have been shown to temporarily increase thermogenesis by 4–5 percent,
+          which equates to 15–25 calories per day </p>
+        <h3 class="">Genetics and Epigenetics</h3>
+        <p>Building lean body mass is a good way to increase RMR. Humans reach their peak muscular mass between the
+          ages of 28 and 32, after which time they begin to lose muscle mass.</p>
+        <p>Age-related muscle loss may be slowed by the capacity to maintain or even increase muscular mass. Muscle
+          mass gains of 2 to 4 pounds may increase metabolism by 7 to 8 percent, resulting in an additional 90 to 110
+          kcal to TDEE every day or 9 to 11 pounds over the course of a year.</p>
+        <h3 class="">Sleep</h3>
+        <p>Your RMR may be impacted adversely even if you have sleep debt (which is to say, a lack of sleep).</p>
+        <h3 class="">Low Caloric Intake</h3>
+        <p>RMR may be suppressed by as much as 20%, according to studies conducted over the course of three decades on
+          the effects of consuming extremely few calories (e.g., starvation, 800-calorie diets).</p>
+        <p>Cortisol may have a negative influence on thyroid hormone production when it is increased for an extended
+          period of time, resulting in a decrease in metabolism.
+          It's also possible to lose muscle mass in hunger circumstances and hence lower RMR as a result.
+        </p>
+        <p>As an example, for a person with an RMR of 1,200 to 1,500 calories a day, a 20% suppression may result in
+          240 to 300 calories per day, or 25 to 31 pounds per year.
+          Follow the link for further information on hormone synthesis and its connection to metabolic function.
+        </p>
+      </div>
+    </div>
+    <!-- <app-info></app-info> -->
+  </div>
+  <ngx-json-ld [json]="schema"></ngx-json-ld>
+
+</section>

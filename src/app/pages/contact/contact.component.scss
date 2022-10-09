@@ -1,0 +1,23 @@
+@import '../../../variables.scss';
+@import '../../../mediaqueries.scss';
+.message {
+    font-weight: 600;
+    margin: 10px 0;
+  }
+  
+  .required {
+    font-size: 12px;
+    padding-left: 6px;
+    color: color(danger);
+  }
+  
+  .error {
+    color: color(danger);
+  }
+  @include tablet-sm {
+    .hero-responsive {
+      display: none;
+    }
+  }
+  
+  

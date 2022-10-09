@@ -1,0 +1,31 @@
+@import '../../../../variables.scss';
+@media screen and (min-width: 552px) {
+    .widthSelectDate {
+       width: 30% !important;
+    }
+    // .marginTop{
+    //     margin-top: 20px;
+    // }
+}
+
+@media screen and (max-width: 552px) {
+    .widthSelectDate {
+        width: 90% !important;
+    }
+}
+
+em {
+    font-size: 22px;
+    color: color(blue-primary);
+    font-family: font(font-family-regular);
+    font-weight: bold;
+}
+[type="date"] {
+    background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+  }
+  [type="date"]::-webkit-inner-spin-button {
+    display: none;
+  }
+  [type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }

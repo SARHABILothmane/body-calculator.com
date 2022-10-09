@@ -13,7 +13,7 @@ import { MenuComponent } from './components/menu/menu.component';
     MenuComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule
   ],
   providers: [],

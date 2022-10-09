@@ -1,0 +1,21 @@
+@import '../../../../mediaqueries.scss';
+@import '../../../../variables.scss';
+
+.social-icon {
+  line-height: 45px;
+  font-size: 40px;
+  color: color(blue-primary);
+}
+
+.social-icon:hover {
+  color: color(dark);
+  transform: scale(1.1);
+}
+
+.height {
+  color: color(blue-primary);
+  font-size: 26px;
+  // font-style: bold;
+  font-weight: bolder;
+  font-family: font(font-family-regular);
+}

@@ -1,0 +1,44 @@
+@import '../../../../mediaqueries.scss';
+@import '../../../../variables.scss';
+
+.bmi {
+  color: color(primary);
+  font-size: 30px;
+  // font-style: bold;
+  font-weight: bolder;
+  font-family: font(font-family-regular);
+}
+.error {
+  color: color(danger);
+}
+em {
+  font-size: 22px;
+  color: color(blue-primary);
+  font-family: font(font-family-regular);
+}
+p {
+  font-family: font(font-family-regular);
+  font-size: 18px;
+  //font-weight: bolder;
+}
+.rsltP {
+  font-size: 24px;
+  font-family: font(font-family-bold);
+}
+.hero-subtitle {
+  letter-spacing: 1px;
+  font-family: font(font-family-bold);
+  line-height: 1.5;
+  font-size: 22px;
+  text-transform: none;
+  color: color(dark) !important;
+}
+[type="date"] {
+    background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+  }
+  [type="date"]::-webkit-inner-spin-button {
+    display: none;
+  }
+  [type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }

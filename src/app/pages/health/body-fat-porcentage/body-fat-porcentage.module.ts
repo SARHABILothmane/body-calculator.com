@@ -1,19 +1,19 @@
-import { NgxJsonLdModule } from 'ngx-json-ld';
-import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DateCalculatorComponent } from './date-calculator.component';
+import { BodyFatPorcentageComponent } from './body-fat-porcentage.component';
+import { NgxJsonLdModule } from 'ngx-json-ld';
 import { OtherCalculatorModule } from '../../other-calculator/other-calculator.module';
+import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
-  { path: "", component: DateCalculatorComponent },
+  { path: "", component: BodyFatPorcentageComponent },
 ];
 
 
 @NgModule({
   declarations: [
-    DateCalculatorComponent
+    BodyFatPorcentageComponent
   ],
   imports: [
     CommonModule,
@@ -23,4 +23,4 @@ const routes: Routes = [
     RouterModule.forChild(routes),
   ]
 })
-export class DateCalculatorModule { }
+export class BodyFatPorcentageModule { }

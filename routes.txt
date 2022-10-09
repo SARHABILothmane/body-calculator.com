@@ -1,0 +1,14 @@
+/calculators/date-calculator/.
+/calculators/age-calculator/.
+/calculators/time-calculator/.
+/health/bmi-calculator/.
+/health/bmi-calculator-women/.
+/health/bmi-calculator-men/.
+/health/body-fat-percentage-calculator/.
+/health/ideal-weight-calculator/.
+/health/body-shape-calculator/.
+/health/bmr-calculator/.
+/health/healthy-weight-calculator/.
+/contact/.
+/private-policy/.
+/terms/.

@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./date-calculator.component.scss']
 })
 export class DateCalculatorComponent implements OnInit {
-
   calculeDate!: UntypedFormGroup;
   AddOrSubtractDate!: UntypedFormGroup;
   rslt!: number;
@@ -69,7 +68,6 @@ export class DateCalculatorComponent implements OnInit {
       days: new UntypedFormControl(0, [Validators.required]),
     });
   }
-
   ngOnInit(): void {
     this.titleService.setTitle("Free online date calculator - body-calculator");
     this.metaService.addTags([
@@ -120,24 +118,23 @@ export class DateCalculatorComponent implements OnInit {
       this.error = "";
       let dateEnd = this.calculeDate.value.dateEnd;
       let dateStart = this.calculeDate.value.startDate;
-      dateStart = new Date(Date.UTC(
-        dateStart.getFullYear(),
-        dateStart.getMonth(),
-        dateStart.getDate(),
-        dateStart.getHours(),
-        dateStart.getMinutes(),
-        dateStart.getSeconds()
-      )).toISOString();
+      // dateStart = new Date(Date.UTC(
+      //   dateStart.getFullYear(),
+      //   dateStart.getMonth(),
+      //   dateStart.getDate(),
+      //   dateStart.getHours(),
+      //   dateStart.getMinutes(),
+      //   dateStart.getSeconds()
+      // )).toISOString();
 
-      dateEnd = new Date(Date.UTC(
-        dateEnd.getFullYear(),
-        dateEnd.getMonth(),
-        dateEnd.getDate(),
-        dateEnd.getHours(),
-        dateEnd.getMinutes(),
-        dateEnd.getSeconds()
-      )).toISOString();
-
+      // dateEnd = new Date(Date.UTC(
+      //   dateEnd.getFullYear(),
+      //   dateEnd.getMonth(),
+      //   dateEnd.getDate(),
+      //   dateEnd.getHours(),
+      //   dateEnd.getMinutes(),
+      //   dateEnd.getSeconds()
+      // )).toISOString();
 
       if (dateStart > dateEnd) {
         this.error = "The start date needs to be earlier than the end date";
@@ -271,9 +268,9 @@ export class DateCalculatorComponent implements OnInit {
       this.errorAddOrSubDate = "Please select a start date";
       return;
     }
-    let addOrSubtract = new Date(this.AddOrSubtractDate.value.addSubDate.toISOString());
-    this.selectedDate = new Date(this.AddOrSubtractDate.value.addSubDate.toISOString());
 
+    let addOrSubtract = new Date(this.AddOrSubtractDate.value.addSubDate);
+    this.selectedDate = new Date(this.AddOrSubtractDate.value.addSubDate);
     if (this.addOrSubtractSymbole == "+") {
       addOrSubtract.setFullYear(addOrSubtract.getFullYear() + this.AddOrSubtractDate.value.years);
       addOrSubtract.setMonth(addOrSubtract.getMonth() + this.AddOrSubtractDate.value.months);
@@ -293,7 +290,7 @@ export class DateCalculatorComponent implements OnInit {
 
 
   changeSymbole(symbole: any) {
-    this.addOrSubtractSymbole = symbole;
+    this.addOrSubtractSymbole = symbole.target.value;
   }
 
 

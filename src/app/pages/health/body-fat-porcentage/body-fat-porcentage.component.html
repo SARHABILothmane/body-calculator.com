@@ -1,0 +1,516 @@
+<section>
+  <div class="container">
+    <div class="col-12">
+      <h1 class="text-secondary text-center">Body fat percentage BFP calculator</h1>
+      <div class="flexMobile">
+        <!-- <app-banner *ngIf="envirement"></app-banner> -->
+      </div>
+      <p class="hero-subtitle col-md-9 col-12 mx-auto">
+        Body fat percentage is the percentage of your body weight that is made up of fat. Knowing your body fat
+        percentage can help you determine if you need to lose weight or gain muscle.
+      </p>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6 mt-4">
+        <div class="card">
+          <div class="card-header text-white text-center font-weight-bold">Body fat percentage calculator</div>
+          <div class="card-body example-items-col">
+            <div *ngIf="error" class="alert alert-danger w-75 mx-auto text-center" role="alert">
+              <span>
+                {{error}}
+              </span>
+            </div>
+            <form [formGroup]="calculeBfp" (ngSubmit)="claculteBfp(target)">
+              <label for="">Gender</label>
+              <!-- <fa-icon *ngIf="checked == 'male'" class="social-icon ml-5" [icon]="faMale"></fa-icon>
+                    <fa-icon *ngIf="checked == 'female'" class="social-icon ml-5" [icon]="faFemale"></fa-icon> -->
+              <!-- nb-form-field -->
+              <div class="mb-3">
+                <select class="form-select" formControlName="gender" placeholder="gender" selected="female"
+                  (change)="checkedGender($event)" required>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+                <!-- <nb-select formControlName="gender" placeholder="gender" selected="female" status="basic"
+                  shape="semi-round" fullWidth (selectedChange)="checkedGender($event)" required>
+                  <nb-option value="male">Male</nb-option>
+                  <nb-option value="female">Female</nb-option>
+                </nb-select> -->
+                <small class="error mt-1" *ngIf="gender.invalid && (gender.dirty || gender.touched)">
+                  Gender is required !
+                </small>
+              </div>
+              <!-- nb-form-field -->
+              <label for="">Age</label>
+              <div class="pb-3">
+                <input type="number" placeholder="Age" formControlName="age" class="form-control">
+                <!-- <small class="error mt-1" *ngIf="age.invalid && (age.dirty || age.touched)">
+                        Age is required !
+                      </small> -->
+                <small class="text-danger" *ngIf="submitted && formBfp['age'].errors?.['required']">Age is required.
+                  !</small>
+                <small class="text-danger" *ngIf="submitted && formBfp['age'].errors?.['min']">Please provide an age
+                  between 5
+                  and
+                  100.
+                  !</small>
+                <small class="text-danger" *ngIf="submitted && formBfp['age'].errors?.['max']">Please provide an age
+                  between 5
+                  and
+                  100.
+                  !</small>
+              </div>
+              <label for="">Height :</label>
+              <strong *ngIf="selectedHeight == 'cm'"> cm</strong>
+              <strong *ngIf="selectedHeight == 'm'"> Metres</strong>
+              <strong *ngIf="selectedHeight == 'in'"> Inches</strong>
+              <strong *ngIf="selectedHeight == 'ft'"> Feet</strong>
+              <!-- nb-form-field -->
+              <div class="mb-3 nb-form-field-max-width">
+                <div class="row">
+                  <div class="col-6">
+                    <input class="form-control" type="number" formControlName="height" placeholder="cm"
+                      [(ngModel)]="modelsBmi.height" IsDecimal>
+                  </div>
+                  <div class="col-6 pl-0">
+                    <select class="form-select" placeholder="cm" selected="cm" (change)="heightSelect($event)" required>
+                      <option value="cm">cm</option>
+                      <option value="m">Metres (m)</option>
+                      <option value="in">Inches (in)</option>
+                      <option value="ft">Feet (ft)</option>
+                    </select>
+                    <!-- <nb-select class="nb-select-min-width" placeholder="cm" selected="cm" status="basic"
+                      shape="semi-round" fullWidth (selectedChange)="heightSelect($event)" required>
+                      <nb-option value="cm">cm</nb-option>
+                      <nb-option value="m">Metres (m)</nb-option>
+                      <nb-option value="in">Inches (in)</nb-option>
+                      <nb-option value="ft">Feet (ft)</nb-option>
+                    </nb-select> -->
+                  </div>
+                </div>
+                <small class="error mt-1" *ngIf="height.invalid && (height.dirty || height.touched)">
+                  Height is required !
+                </small>
+              </div>
+              <!-- nb-form-field -->
+              <label for="">Weight :</label>
+              <strong *ngIf="selectedWeight == 'kg'"> kg</strong>
+              <strong *ngIf="selectedWeight == 'dag'"> Decagrams</strong>
+              <strong *ngIf="selectedWeight == 'lb'"> Pounds</strong>
+              <strong *ngIf="selectedWeight == 'oz'"> Ounces</strong>
+              <!-- nb-form-field -->
+              <div class="mb-3">
+                <div class="row">
+                  <div class="col-6">
+                    <input type="number" class="form-control" formControlName="weight" placeholder="kg"
+                      [(ngModel)]="modelsBmi.weight" IsDecimal>
+                  </div>
+                  <div class="col-6 pl-0">
+                    <select class="form-select" placeholder="kg" selected="kg" (change)="weightSelect($event)" required>
+                      <option value="kg">kg</option>
+                      <option value="dag">Decagrams (dag)</option>
+                      <option value="lb">Pounds (lb)</option>
+                      <option value="oz">Ounces (oz)</option>
+                    </select>
+                    <!-- <nb-select class="nb-select-min-width" placeholder="kg" selected="kg" status="basic"
+                      shape="semi-round" fullWidth (selectedChange)="weightSelect($event)" required>
+                      <nb-option value="kg">kg</nb-option>
+                      <nb-option value="dag">Decagrams (dag)</nb-option>
+                      <nb-option value="lb">Pounds (lb)</nb-option>
+                      <nb-option value="oz">Ounces (oz)</nb-option>
+                    </nb-select> -->
+                  </div>
+                </div>
+                <small class="error mt-1" *ngIf="weight.invalid && (weight.dirty || weight.touched)">
+                  Weight is required !
+                </small>
+              </div>
+              <!-- nb-form-field -->
+              <!-- <button nbSpinnerStatus="danger" type="submit" shape="semi-round" nbButton class="mb-3" fullWidth
+                      status="success">Calculate</button> -->
+              <button type="submit" class="btn btnBgPrimary w-100">Calculate</button>
+            </form>
+          </div>
+        </div>
+        <div class="col-12">
+          <!-- <app-banner *ngIf="envirement"></app-banner> -->
+        </div>
+        <div #target></div>
+        <div class="mt-2" *ngIf="bmi">
+          <div class="border p-4 bg-white">
+            <p class="text-center font-weight-bold" style="font-size: 30px;">Body Parameters</p>
+            <p class="text-center">Your body fat category is: <span class="bmi">{{message}}</span></p>
+            <div class="row mt-4">
+              <div class="col-md-6 col-sm-12 pl-0">
+                <p>-Age: <em>{{calculeBfp.value.age}} Year</em></p>
+                <p>-Height: <em>{{calculeBfp.value.height}} Cm</em></p>
+                <p>-Weight: <em>{{calculeBfp.value.weight}} Kg</em></p>
+                <p>-Gender: <em>{{calculeBfp.value.gender}}</em></p>
+              </div>
+              <div class="col-md-6 col-sm-12 p-0">
+                <p>-Body fat percentage: <em>{{bfp | number}} %</em></p>
+                <p>-Lean Body Mass: <em>{{lbm}}</em></p>
+                <p>-Body mass index: <em>{{bmi | number}} kg/m<sup>2</sup></em></p>
+                <p>-Body Fat Mass: <em>{{bfm}}</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <table class="table bg-white" *ngIf="addCataloge && checked === 'female'">
+          <thead class="bg-secondary">
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Body fat</th>
+              <!-- <th scope="col">Rslt<sup>2</sup></th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr [class.msg]="message === 'Essential fat'">
+              <!-- <td scope="row" [class.msg]="message === 'Severe thinness'">Severe thinness</td> -->
+              <td scope="row">Essential fat</td>
+              <td>
+                10-13%
+              </td>
+            </tr>
+            <tr [class.msg]="message === 'Athletes'">
+              <td scope="row">Athletes</td>
+              <td>14-20%</td>
+            </tr>
+            <tr [class.msg]="message === 'Fitness'">
+              <td scope="row">Fitness</td>
+              <td>21-24%</td>
+            </tr>
+            <tr [class.msg]="message === 'Average'">
+              <td scope="row">Average</td>
+              <td>25-31%</td>
+            </tr>
+            <tr [class.msg]="message === 'Obese'">
+              <td scope="row">Obese</td>
+              <td>
+                >32%
+              </td>
+              <!-- <td>
+          <nb-icon nbSuffix icon="chevron-left-outline" pack="eva"></nb-icon>40 and above
+        </td> -->
+            </tr>
+          </tbody>
+        </table>
+        <table class="table bg-white" *ngIf="addCataloge && checked === 'male'">
+          <thead class="bg-secondary">
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Body fat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr [class.msg]="message === 'Essential fat'">
+              <!-- <td scope="row" [class.msg]="message === 'Severe thinness'">Severe thinness</td> -->
+              <td scope="row">Essential fat</td>
+              <td>
+                2-5%
+              </td>
+            </tr>
+            <tr [class.msg]="message === 'Athletes'">
+              <td scope="row">Athletes</td>
+              <td>6-13%</td>
+            </tr>
+            <tr [class.msg]="message === 'Fitness'">
+              <td scope="row">Fitness</td>
+              <td>14-17%</td>
+            </tr>
+            <tr [class.msg]="message === 'Average'">
+              <td scope="row">Average</td>
+              <td>18-24%</td>
+            </tr>
+            <tr [class.msg]="message === 'Obese'">
+              <td scope="row">Obese</td>
+              <td>
+                >25%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-12 mt-3">
+        <app-other-calculator-health eleminateCalculator="bfp"></app-other-calculator-health>
+      </div>
+    </div>
+
+    <p class="text-secondary text-center my-5 font-weight-bold" style="font-size: 24px;">Learn more about Body Fat
+      Percentage Calculator</p>
+
+    <div class="row border shadow bg-white mt-4">
+      <div class="col-md-12 mx-2 mt-4 p-5">
+        <p>
+          Body fat percentage is a number that represents how much of your body weight is made up of fat.
+        </p>
+        <p>
+          If you've ever wondered what your body fat proportion is, here is the ideal place to determine. We will
+          discuss in detail not just the significance of this data but also how to choose the body fat percentage.
+        </p>
+
+        <p>
+          A person’s body fat percentage is an important measurement to know, as it can indicate how healthy they
+          are. A
+          higher percentage means a person is more likely to have health problems such as heart disease, stroke, and
+          diabetes.
+        </p>
+        <p>
+          A lower percentage indicates a person is in better shape and has a lower risk of developing these health
+          problems. There are many ways to measure body fat percentage, including using a scale that measures
+          electrical
+          impedance, or by using calipers to measure the thickness of the skinfold at various points on the body.
+        </p>
+
+        <h2 class="text-secondary">Body fat percentage female</h2>
+        <p>
+          A healthy body fat percentage for women is considered to be between 21 and 24 percent. Anything above that
+          is
+          considered to be obese, and anything below 21 percent is considered to be underweight.
+        </p>
+        <p>
+          Body fat percentage is determined by calculating your <a routerLink="/health/bmi-calculator/.">body mass
+            index
+            (BMI)</a> and dividing it by your height squared.
+        </p>
+        <p>
+          A healthy body fat percentage for women is around 18-24%. Anything above that can be considered obese, and
+          anything below can be classified as underweight. Body fat percentage is calculated by dividing your total
+          body
+          fat mass by your total body weight.
+        </p>
+
+        <h2 class="text-secondary">Body fat percentage men</h2>
+
+        <p>
+          According to the National Institutes of Health, the average body fat percentage for adult men is 18-24%.
+          However, body fat percentage can vary significantly from person to person, and even within a single
+          population. For example, a recent study of firefighters found that the average body fat percentage was
+          28%,
+          while another study of army soldiers found that the average body fat percentage was just 14%.
+        </p>
+
+        <p>
+          So what is your ideal body fat percentage? That depends on a variety of factors, including your age, sex,
+          and
+          activity level.
+        </p>
+
+        <p>
+          But as a general rule, you should aim to maintain a body fat percentage that allows you to see your muscle
+          definition without too much excess fat. For most men, this falls within the 18-24% range.
+        </p>
+
+        <p>
+          The average body fat percentage for men is around 18%. Athletes and very fit men may have a body fat
+          percentage of 10-14%, while men with a higher level of body fat may have a percentage of 25% or more.
+        </p>
+
+        <p>
+          There are many ways to measure body fat percentage, from simple methods like using a tape measure to more
+          sophisticated techniques such as underwater weighing or DEXA scanning.
+        </p>
+
+        <h2 class="text-secondary">What do fats do to your body?</h2>
+        <p>
+          Fats are an integral part of our diet. They give us energy, are utilized in cells' growth and are
+          transformed
+          into vital hormones.</p>
+        <p>Fat tissues safeguard organs from physical injury and provide the insulation we need. </p>
+        <p> A large number of fatty tissues could create new pathways for developing diseases. </p>
+        <h2 class="text-secondary">How do you determine the <a href="https://en.wikipedia.org/wiki/Body_fat_percentage"
+            target="_blank" rel="noopener noreferrer">body
+            fat percentage</a>?</h2>
+        <p>You can determine the body's composition by using our calculator for body fat percentage. Be aware that
+          no
+          calculator, no matter how complicated, will never substitute a visit to an office of a doctor.</p>
+        <p> This result should be taken as a rough estimate, and it will only inform you of the percentage of body
+          fat
+          that is excessively over the top. However, there's no reason to be concerned if the result isn't exactly
+          the
+          suggested value.</p>
+        <p>To calculate your percentage of body fat, it is necessary to collect the following information:</p>
+        <p>Your age & gender</p>
+
+        <p><span>Weight: </span>weigh yourself. The most accurate results weigh yourself early in the morning,
+          before
+          breakfast
+          and with no clothes on.</p>
+
+        <p><span>Height: </span>Stand straight and count the distance between the floor and the top of your head.
+          <em>Remember -
+            no shoes!</em> </p>
+        <p>After you have gathered all the data you need, you can enter them all into the Body Fat Calculator.</p>
+        <p>If you're interested in what it takes to calculate, here are the formulas we employ:</p>
+
+        <p><span>Body fat % =</span> -44.988 + (0.503 * age) + (10.689 * gender) + (3.172 * BMI) - (0.026 * BMI2) +
+          (0.181 * BMI * gender) -
+          (0.02 * BMI * age) - (0.005 * BMI2 * gender) + (0.00021 * BMI2 * age)</p>
+        <p>Where:</p>
+        <p>Gender value: male = 0 and female = 1.</p>
+        <p>BMI = height/weight = kg/m2</p>
+        <p>The equation was confirmed through The American Diabetes Association. The equation was evaluated with
+          6,510
+          participants and demonstrated an estimated error of 4.66 percent.</p>
+        <p>Be aware that due to the different body types in the population, the estimate could not be 100 100%
+          precise!
+          For instance, an exceptionally strong person may have high BMI and weight values, but it isn't possible to
+          say
+          that they are overweight.</p>
+        <p>If you're searching for more accurate and precise calculations, you can try this Navy Tool for Body Fat
+          and
+          Army Tool for Body Fat!</p>
+        <p>Body fat ratio for females that is ideal</p>
+        <p>Because the <a routerLink="/health/bmi-calculator/.">BMI calculation</a> is based only on your weight and
+          height, and gender, whether you're male or
+          female isn't a factor determining the number.</p>
+        <p>However, there is a difference between women and men regarding the range of body fat percentages.</p>
+        <div class="col-md-4 col-12 mx-auto">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Body fat</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">Essential fat</td>
+                <td>
+                  10-13 %
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">Athletes</td>
+                <td>14-20 %</td>
+              </tr>
+              <tr>
+                <td scope="row">Fitness</td>
+                <td>21-24 %</td>
+              </tr>
+              <tr>
+                <td scope="row">Acceptable</td>
+                <td>25-31 %</td>
+              </tr>
+              <tr>
+                <td scope="row">Obesity</td>
+                <td>
+                  >32 %
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The age of the person determines ideal body fat percentages.</p>
+        <div class="col-md-4 col-12  mx-auto">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Age</th>
+                <th scope="col">Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">20-39</td>
+                <td>
+                  21-32 %
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">40-59</td>
+                <td>23-33 %</td>
+              </tr>
+              <tr>
+                <td scope="row">60-79</td>
+                <td>24-35 %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h2 class="text-secondary">Body fat is the ideal percentage of body fat for males.</h2>
+        <p>The general rule is that men have a lower body fat-to-ratio of lean tissues than females, which is the
+          reason
+          for the variations in the proportions.</p>
+        <p>Reproduction is one factor that contributes to the higher percentages of body fat for females.</p>
+        <p>In this regard In that context, the ACE chart shows the following ranges of men's age:</p>
+        <div class="col-md-4 col-12  mx-auto">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Body fat</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">Essential fat</td>
+                <td>
+                  2-5 %
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">Athletes</td>
+                <td>6-13 %</td>
+              </tr>
+              <tr>
+                <td scope="row">Fitness</td>
+                <td>14-17 %</td>
+              </tr>
+              <tr>
+                <td scope="row">Acceptable</td>
+                <td>18-24 %</td>
+              </tr>
+              <tr>
+                <td scope="row">Obesity</td>
+                <td>
+                  >25 %
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>To get the ideal percentage of body fat determined by age, males:</p>
+        <div class="col-md-4 col-12  mx-auto">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Age</th>
+                <th scope="col">Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">20-39</td>
+                <td>
+                  8-19 %
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">40-59</td>
+                <td>11-21 %</td>
+              </tr>
+              <tr>
+                <td scope="row">60-79</td>
+                <td>13-24 %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h2 class="text-secondary">Problems with calculation</h2>
+        <p>If you view BMI and body fat measurements as the only tools to keep track of your progress, you might not
+          be
+          obsessed with the results.</p>
+        <p>Also, compelled by the desire to lower a specific number, you could be motivated to improve your overall
+          health by feeding your body healthy foods and incorporating some <a rel="noopener"
+            href="https://en.wikipedia.org/wiki/Fitness" target="_blank" rel="noopener noreferrer">fitness</a> into
+          your routine.</p>
+        <p>This mentality can help to accept and understand the limitations and issues associated with BMI and body
+          fat
+          percentages.</p>
+      </div>
+    </div>
+
+  </div>
+  <ngx-json-ld [json]="schema"></ngx-json-ld>
+</section>

@@ -1,0 +1,166 @@
+<section>
+  <div class="container">
+    <div class="col-12">
+      <h1 class="text-secondary text-center mb-3 px-2">Healthy weight calculator</h1>
+      <div class="flexMobile">
+        <!-- <app-banner *ngIf="envirement"></app-banner> -->
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col-md-4 offset-md-1 d-flex justify-content-center">
+        <img loading="lazy" src="../../../../assets/images/undraw_pilates_gpdb.svg" width="100%" height="90%"
+          alt="Healthy weight calculator">
+      </div>
+
+      <div class="col-md-5 offset-md-1 ">
+        <div class="card">
+          <div class="card-header text-white text-center font-weight-bold">Healthy weight calculator</div>
+          <div class="card-body example-items-col">
+            <div *ngIf="error" class="alert alert-danger w-75 mx-auto text-center" role="alert">
+              <span>
+                {{error}}
+              </span>
+            </div>
+            <form [formGroup]="calculeHwc" (ngSubmit)="CalculateHwc(target)">
+              <label for="">Height :</label>
+              <strong *ngIf="selectedHeight == 'cm'"> cm</strong>
+              <strong *ngIf="selectedHeight == 'm'"> Metres</strong>
+              <strong *ngIf="selectedHeight == 'in'"> Inches</strong>
+              <strong *ngIf="selectedHeight == 'ft'"> Feet</strong>
+              <div class="mb-3">
+                <div class="row">
+                  <div class="col-6">
+                    <input class="form-control" type="text" nbInput fullWidth status="basic" shape="semi-round"
+                      placeholder="Height" formControlName="height" [(ngModel)]="modelsIwc.height" IsDecimal>
+                    <small class="text-danger" *ngIf="submitted && formHwc['height'].errors?.['required']">Height is
+                      required !</small>
+                  </div>
+                  <div class="col-6 pl-0">
+                    <select class="form-select" placeholder="cm" selected="cm" (change)="heightSelect($event)" required>
+                      <option value="cm">cm</option>
+                      <option value="m">Metres (m)</option>
+                      <option value="in">Inches (in)</option>
+                      <option value="ft">Feet (ft)</option>
+                    </select>
+                    <!-- <nb-select class="nb-select-min-width" placeholder="cm" selected="cm" status="basic"
+                      shape="semi-round" fullWidth (selectedChange)="heightSelect($event)" required>
+                      <nb-option value="cm">cm</nb-option>
+                      <nb-option value="m">Metres (m)</nb-option>
+                      <nb-option value="in">Inches (in)</nb-option>
+                      <nb-option value="ft">Feet (ft)</nb-option>
+                    </nb-select> -->
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btnBgPrimary w-100">Calculate</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <!-- <app-banner *ngIf="envirement"></app-banner> -->
+      </div>
+
+      <div class="col-md-4 mt-3 mx-auto" *ngIf="height">
+        <div class=" cardResultDesigne">
+          <p class="text-secondary text-center bolder font-weight-bold" style="font-size: 24px;">Your healthy weight
+            range is:</p>
+          <p class="bmi text-center">
+            {{rsltHealthyWeightMin}} kgs -
+            {{rsltHealthyWeightMax}} kgs
+          </p>
+        </div>
+      </div>
+      <span #target></span>
+      <div class="col-12 mt-3">
+        <app-other-calculator-health eleminateCalculator="hwc"></app-other-calculator-health>
+      </div>
+    </div>
+
+    <p class="font-weight-bold text-center text-secondary mb-4 w-100" style="font-size: 24px;">Learn more about
+      healthy weight calculator</p>
+    <div class="row border shadow bg-white p-3 mt-4">
+      <h2 class="text-secondary mt-4 p-4"><a href="https://en.wikipedia.org/wiki/Human_body_weight" target="_blank"
+          rel="noopener noreferrer">Healthy Weight Calculator</a></h2>
+      <p>
+        BMI is used to define a good weight level. BMI-based weight categories are established by height, and the
+        calculator employs common methods to estimate the range of probable body weights that fit inside each
+        category.
+      </p>
+      <p>
+        A BMI between 18.5 and 25 kg/m2 is considered healthy or normal for those over the age of 18.
+      </p>
+      <p>
+        Information about "healthy body weight" may be found on the BMI Calculator, but keep in mind that it relies on
+        estimates that don't take into consideration things like body composition.
+      </p>
+      <p>It's possible to be overweight or underweight and yet be considered "healthy," but this needs more than a
+        broad calculation to determine—likely with the advice of a medical practitioner.</p>
+
+      <h2 class="text-secondary">Being underweight, overweight, or obese might have a negative impact on your health.
+      </h2>
+      <h3>-BMI less than 18.5:</h3>
+      <p>A person may be underweight for a variety of reasons, including genetics, a lack of food, problems with their
+        metabolism, medication, or a medical condition. Hyperthyroidism, cancer, and TB are just a few of the many
+        medical disorders that are related with being underweight.</p>
+      <p>Underweight people have death rates that are equivalent to severely obese people. Even though these death
+        rates are impacted by illness-related weight loss, being underweight may not have considerably higher
+        mortality rates than being of healthy weight in the absence of underlying disease.</p>
+      <!-- <br> -->
+      <p>Being underweight may create a host of additional problems, including a lack of energy or endurance,
+        osteoporosis, and a weak immune system that makes a person more vulnerable to infection.</p>
+      <p>Malnourishment is a concern for those who are underweight as a result of inadequate diet rather than
+        excessive exercise or other reasonable factors. their physical and mental health.</p>
+      <p>Kwashiorkor and marasmus, the most severe types of malnutrition, may occur in the most extreme situations.
+      </p>
+      <!-- <br> -->
+      <p>Being underweight as a consequence of an eating problem may cause menstruation to stop, infertility to set
+        in, and even pregnancy to be complicated.</p>
+      <h3>-<a routerLink="/health/bmi-calculator/.">Body mass index (BMI)</a> between 25-30:</h3>
+      <p>Consuming more calories than the body expends via metabolic processes and physical activity is the most
+        common cause of obesity, according to experts. Alcoholism, a genetic predisposition, eating disorders, a
+        sedentary lifestyle, poor nutrition, and stress are all factors that may contribute to obesity.</p>
+      <p>There is a lot of debate over the detrimental impacts of being overweight compared to being obese. Most
+        people agree that being overweight has some of the same problems as being obese, although to a lower degree.
+        However, research has shown that overweight persons have a lower death risk than those who are considered a
+        healthy weight.</p>
+      <p> Some argued that a BMI range of 25-30, which is currently categorized as overweight, maybe ideal, Some
+        contend that death is not the only measure of health, but that obesity increases the risk of diabetes, heart
+        disease, and various types of cancer...</p>
+      <h3>-Obese people have a body mass index (BMI) above 30.</h3>
+      <p>In most cases, obesity is the result of a lack of exercise, overeating, and hereditary predisposition.</p>
+      <p>Obesity may be caused by genetics, hormonal imbalances owing to endocrine problems, drugs, or mental issues
+        in a small number of instances. While obesity may be prevented by making lifestyle and food modifications,
+        there is still a lack of awareness of all the contributing aspects.</p>
+      <p>Personal management of energy intake and output may be simplified, but it's typically more complicated and
+        there is no algorithmic answer for dealing with obesity in society.</p>
+      <p>Heart disease, stroke, hypertension, diabetes, musculoskeletal problems such as osteoarthritis, and various
+        malignancies are all linked to obesity, which is a major risk factor.</p>
+      <p>Obstructive sleep apnea and depression may also result from it (or sometimes be caused by depression).
+        Obesity is one of the major avoidable causes of mortality in the world because of all the possible
+        consequences associated with it.</p>
+      <h2 class="text-secondary">The Importance of Maintaining a Healthy Weight</h2>
+      <p>Obesity may cause a wide range of health problems depending on your starting weight, current weight, and <a
+          routerLink="/health/body-fat-percentage-calculator/.">body fat percentage</a>. It is necessary to address
+        many
+        of the same underlying factors, including food, exercise, and probable mental health concerns, in order to
+        manage these diseases.</p>
+      <p>Underweight people may gain weight in a healthy way by consuming more nutrient-rich foods like whole grains,
+        veggies, lean protein sources, and nuts and seeds on a more regular basis.</p>
+      <p>A person's weight might also rise if they do weightlifting to build muscular mass as well. When an eating
+        disorder like anorexia or bulimia nervosa is the root cause of a person's underweight condition, treating the
+        mental health issue as well as the physical weight gain is necessary.</p>
+      <p>Like being underweight, being overweight or obese may be addressed to a considerable extent with dietary and
+        activity modifications.</p>
+      <p>While calorie-dense foods, total fats, and sweets should be avoided in favor of a diet rich in fruits,
+        vegetables, and legumes, whole grains and nuts should be consumed more often.</p>
+      <p>Additionally, it advises that adults and children alike engage in at least 150 minutes of physical exercise
+        each week.</p>
+      <p>Only when people have access to education, inexpensive and healthier dietary options, and changes other than
+        a tax on sugar-sweetened beverages or reductions in the sugar and salt content of processed foods, as well as
+        decreased marketing to children and adolescents, can individual responsibility be fully effective.</p>
+    </div>
+
+  </div>
+  <ngx-json-ld [json]="schema"></ngx-json-ld>
+</section>

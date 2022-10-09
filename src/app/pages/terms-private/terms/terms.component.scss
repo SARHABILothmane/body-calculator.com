@@ -1,0 +1,15 @@
+@import'../../../../variables.scss';
+
+p {
+  //   font-family: $poppins-black;
+  font-family: font(font-family-regular);
+  font-size: 18px;
+}
+
+.section_title {
+  font-family: font(font-family-regular);
+}
+
+.section_subtitle {
+  font-family: font(font-family-regular);
+}

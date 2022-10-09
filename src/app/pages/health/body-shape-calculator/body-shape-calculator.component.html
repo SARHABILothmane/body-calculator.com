@@ -1,0 +1,359 @@
+<section>
+  <div class="container">
+    <div class="col-12">
+      <h1 class="text-secondary text-center pb-3 px-3">Body Shape Calculator</h1>
+      <div class="flexMobile">
+        <!-- <app-banner *ngIf="envirement"></app-banner> -->
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-5 d-flex align-items-center">
+        <img loading="lazy" class="mb-3" src="../../../../assets/images/undraw_yoga_-248-n.svg" width="100%"
+          height="400px" alt="body shape calculator">
+      </div>
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-header text-white text-center font-weight-bold">Calculate your body shape</div>
+          <div class="card-body example-items-col">
+            <div class="d-flex justify-content-center img-shape">
+              <img loading="lazy" height="94px" width="110px" src="assets/images/body-shape-size.png"
+                alt="body-shape-calculator">
+            </div>
+            <div *ngIf="error" class="alert alert-danger mx-auto mt-2 text-center" role="alert">
+              <span>
+                {{error}}
+              </span>
+            </div>
+            <form [formGroup]="calculeBsc" (ngSubmit)="CalculateBsc(target)">
+              <label for="Bust size">Bust Size :</label>
+              <!-- <strong *ngIf="selectedBust == 'cm'"> cm</strong>
+                  <strong *ngIf="selectedBust == 'm'"> Metres</strong>
+                  <strong *ngIf="selectedBust == 'in'"> Inches</strong>
+                  <strong *ngIf="selectedBust == 'ft'"> Feet</strong> -->
+              <!-- nb-form-field -->
+              <div class="row">
+                <div class="col-6">
+                  <div class="mb-3 nb-form-field-max-width ">
+                    <input type="number" formControlName="bust" class="form-control" [(ngModel)]="modelsBsc.bust"
+                      placeholder="Bust" IsDecimal>
+                    <small class="text-danger" *ngIf="submitted && formBsc['bust'].errors?.['required']">Bust is
+                      required.
+                      !</small>
+                  </div>
+                  <!-- nb-form-field -->
+                  <label for="Waist size">Waist Size :</label>
+                  <!-- <strong *ngIf="selectedWaist == 'cm'"> cm</strong>
+                      <strong *ngIf="selectedWaist == 'm'"> Metres</strong>
+                      <strong *ngIf="selectedWaist == 'in'"> Inches</strong>
+                      <strong *ngIf="selectedWaist == 'ft'"> Feet</strong> -->
+                  <!-- nb-form-field -->
+                  <div class="mb-3 nb-form-field-max-width">
+                    <input type="number" formControlName="waist" class="form-control" [(ngModel)]="modelsBsc.waist"
+                      placeholder="Waist" IsDecimal>
+                    <small class="text-danger" *ngIf="submitted && formBsc['waist'].errors?.['required']">Waist is
+                      required.
+                      !</small>
+                  </div>
+                  <!-- nb-form-field -->
+                  <label for="High Hip size">High Hip Size :</label>
+                  <!-- <strong *ngIf="selectedHighHip == 'cm'"> cm</strong>
+                      <strong *ngIf="selectedHighHip == 'm'"> Metres</strong>
+                      <strong *ngIf="selectedHighHip == 'in'"> Inches</strong>
+                      <strong *ngIf="selectedHighHip == 'ft'"> Feet</strong> -->
+                  <!-- nb-form-field -->
+                  <div class="mb-3 nb-form-field-max-width">
+                    <input type="number" formControlName="highHip" class="form-control" [(ngModel)]="modelsBsc.highHip"
+                      placeholder="High Hip" IsDecimal>
+                    <small class="text-danger" *ngIf="submitted && formBsc['highHip'].errors?.['required']">High Hip is
+                      required.
+                      !</small>
+                  </div>
+                  <!-- nb-form-field -->
+                  <label for="Hip size">Hip Size :</label>
+                  <!-- <strong *ngIf="selectedHip == 'cm'"> cm</strong>
+                      <strong *ngIf="selectedHip == 'm'"> Metres</strong>
+                      <strong *ngIf="selectedHip == 'in'"> Inches</strong>
+                      <strong *ngIf="selectedHip == 'ft'"> Feet</strong> -->
+                  <!-- nb-form-field -->
+                  <div class="mb-3 nb-form-field-max-width">
+                    <input type="number" formControlName="hip" class="form-control" [(ngModel)]="modelsBsc.hip"
+                      placeholder="Hip" IsDecimal>
+                    <small class="text-danger" *ngIf="submitted && formBsc['hip'].errors?.['required']">Hip is
+                      required.
+                      !</small>
+                  </div>
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-center">
+                  <select class="form-select" placeholder="kg" selected="cm"
+                    (change)="[bustSelect($event), waistSelect($event), highHipSelect($event), hipSelect($event)]"
+                    required>
+                    <option value="cm">cm</option>
+                    <option value="m">Metres (m)</option>
+                    <option value="in">Inches (in)</option>
+                    <option value="ft">Feet (ft)</option>
+                  </select>
+                  <!-- <nb-select class="nb-select-min-width" selected="cm" status="primary" shape="semi-round"
+                        (selectedChange)="[bustSelect($event), waistSelect($event), highHipSelect($event), hipSelect($event)]"
+                        required>
+                        <nb-option value="cm">cm</nb-option>
+                        <nb-option value="m">Metres (m)</nb-option>
+                        <nb-option value="in">Inches (in)</nb-option>
+                        <nb-option value="ft">Feet (ft)</nb-option>
+                      </nb-select> -->
+                </div>
+              </div>
+              <button type="submit" class="btn btnBgPrimary w-100">Calculate</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-12">
+        <!-- <app-banner *ngIf="envirement"></app-banner> -->
+      </div>
+
+      <div class="col-md-5 offset-md-5 border shadow bg-white p-4 my-3" *ngIf="message">
+        <p class="text-center font-weight-bold" style="font-size: 24px;">The result of your calculator is</p>
+        <div class="my-3">
+          <p class="text-center my-3 font-weight-bold">Body shape: <span class="bmi">{{message}}</span> </p>
+          <p class="text-center font-weight-bold">Waist-hip ratio (WHR): <span class="bmi">{{whrRslt}}</span></p>
+        </div>
+      </div>
+
+    </div>
+    <span #target style="position: relative; top: -300px"></span>
+    <app-other-calculator-health eleminateCalculator="bsc"></app-other-calculator-health>
+    <p class=" text-center my-1 font-weight-bold" style="font-size: 24px;">Learn more about Body shape calculator</p>
+    <div class="row border shadow bg-white mt-4">
+      <div class="col-md-12 mx-2 mt-4 p-4">
+        <p>Using measures of the chest, hip, high hip, and waist, you can calculate your body shape and waist-to-hip
+          ratio.</p>
+        <p>Varied body types have different body measures, and it is possible to determine a woman's body type using
+          these measurements. To have a better grasp of this female and male body type calculator, let's go over the
+          fundamentals first. Continue reading!</p>
+        <h2 class="text-secondary">What <a href="https://en.wikipedia.org/wiki/Body_shape" target="_blank">body
+            shape</a> calculator :</h2>
+        <p>Body shape calculator is concerned with the assessment of various aspects of one's own physique. A person's
+          size may be determined by taking measurements of their chest, waist, and hip circumferences. Experts use
+          measures to reflect a person's body type, therefore it's important to have an exact reading when analyzing
+          fitness or drawing patterns. </p>
+        <p>Furthermore, body measurements are the sole way to identify a woman's ideal physique and various body
+          forms.
+          It's as simple as entering your measurements into a female body calculator to discover your body type!</p>
+        <h2 class="text-secondary">What is The Most Common Female Body Types?</h2>
+        <p>Women's bodies come in a variety of shapes and sizes. To have a perfectly proportioned female physique,
+          some
+          women need to work out. If you're not sure what my body type is, here is the place to find out! Identify
+          your
+          own body type by examining the most prevalent female body types:</p>
+        <div class="d-flex justify-content-center">
+          <img loading="lazy" src="assets/images/body-shape.png" class="widthMobile" height="250px"
+            alt="body-shape-calculator">
+        </div>
+        <h3 class="my-0">- Hourglass:</h3>
+        <p>The breast and hip measurements of an hourglass figure are equal. The waistline of women with this body
+          type
+          is very small. The curving figure is another term for it. The name "hourglass" refers to the shape's
+          resemblance to a glass. </p>
+        <p>A broad-narrow-wide body pattern is maintained by wide upper and lower halves and a low circumference in
+          the
+          center. The female body figure calculator may help you discover your body type.</p>
+        <ul>
+          <li> The hourglass figure's range is defined as follows: (bust – hips) 1 inch; (hips – bust) 3.6 inches;
+            and
+            (bust – waist) 9 inches; or (hips – waist) 10 inches.
+            The top hourglass figure features a narrow waist and a breast that is much bigger than the hips.
+          </li>
+
+        </ul>
+        <p>If your bust-to-waist ratio is more than 1 inch and less than 10 inches, you're in the upper hourglass
+          range.</p>
+        <ul>
+          <li>The breast is smaller than the hips in a bottom hourglass, and the waist is well defined.
+            3.6′′ between the hips and the bust; 10′′ between the hips and the bust; 9′′ between the hips and the
+            waist;
+            and 1.193′′ between the high hip and the low hip.
+          </li>
+        </ul>
+        <p>Using the same parameters, our hourglass figure calculator may also determine a woman's body type.</p>
+        <h3 class="my-0">- Pear/Triangle/Spoon:</h3>
+        <p>Hips and buttocks tend to be larger, while the breast and shoulders are narrower. The waist is well-defined
+          and glides outward to the hips in a graceful manner. There are no bulges in the arms or shoulders, and the
+          weight is evenly distributed in each leg.</p>
+        <ul>
+          <li> A Pear/Triangle/Spoon figure has (hips – bust) > 2 inches, (hips – waist) 7 inches, and (high
+            hip/waist) 1.193.
+          </li>
+        </ul>
+        <h3 class="my-0">- Inverted Triangle/Lollipop:</h3>
+        <p>The pear form is the exact opposite of this one. They have large shoulders and busts. In addition, the
+          waist does not seem to be sufficiently defined.</p>
+        <ul>
+          <li> If (bust – hips) 3.6′′ AND (bust – waist) 9′′, you have this body form.</li>
+        </ul>
+        <h3 class="my-0 text-break">- Athletic/Rectangle/ Banana:</h3>
+        <p>The proportions of the shoulders, waist, hips, and busts are all the same size on people with a banana body
+          shape. The waist has a rectangular form and is not strongly defined.</p>
+        <ul>
+          <li> (hips – bust) 3.6′′ AND (bust – hips) 3.6′′ AND (bust – waist) 9′′ AND (hips – waist) 10′′ are the
+            ranges
+            for this body shape.
+          </li>
+        </ul>
+        <h3 class="my-0">- Apple/Round body:</h3>
+        <p>People with apple or round body shapes are more likely to put on weight around their midsections. The
+          breast is larger than the rest of the woman's frame. To top it all off, the thighs and hips are also slim.
+        </p>
+        <ul>
+          <li>If you fall into this category, your hips should measure at least 3.6 inches from the top of your bust,
+            and your waist should measure at least 9 inches.</li>
+        </ul>
+        <p>If you're unsure about your body type, you may use our body shape calculator to find out. 6000 women were
+          surveyed at North Carolina State University in 2005 in an effort to determine the prevalence of various body
+          types. </p>
+        <p>Only 20 percent of women were pear-shaped and 14 percent were apple-shaped, according to the findings. Only
+          8 percent of people have the body type known as hourglass.</p>
+
+        <h2 class="text-secondary">Male Body Shape Calculator:</h2>
+        <p>The male body form calculator is the quickest online tool for determining your body's shape. An appropriate
+          body form classification is easier to come up with using this method rather than a guess. </p>
+        <p>Based on the measurements of the chest, waist, and hip, you may calculate the waist to hip ratio. Also, it
+          allows for a variety of body shapes to be shown for both men and women of any age. </p>
+        <p>Keep in mind that if you're interested in the fashion sector, this body types calculator for female and
+          male will allow you to track your body shape online every day. So, using this figure form calculator, you
+          may determine your body type based on your own measurements of body shape.</p>
+
+        <h2 class="text-secondary">What Body Type Am I?</h2>
+        <p>There are a wide variety of body kinds. Body types may be broken down into three broad groups at the most
+          fundamental level. You may determine your body type by taking the following short quiz.</p>
+        <h3 class="my-0">- How do your shoulders look like?</h3>
+        <ul>
+          <li> The hips are smaller than the shoulders.</li>
+          <li> In comparison to the hips, shoulders are smaller in size.</li>
+          <li> Hips and shoulders are one and the same.</li>
+        </ul>
+        <h3 class="my-0">- Well-fitting pants with the accurate waist size:</h3>
+        <ul>
+          <li> Thighs get saggy and sagging</li>
+          <li> Tightens around your hips and thighs.</li>
+          <li> Your thighs will look like they've been Photoshopped.</li>
+        </ul>
+        <h3 class="my-0">- How Your forearms are?</h3>
+        <ul>
+          <li> They're a little bigger than normal.</li>
+          <li> Normal or Average would be a better word to describe them.</li>
+        </ul>
+        <h3 class="my-0">- You tend to:</h3>
+        <ul>
+          <li> I have a little more weight on myself.</li>
+          <li> I'm constantly thin, but I'm also strong and fit.</li>
+        </ul>
+        <h3 class="my-0">- How Your body looks like mostly?</h3>
+        <ul>
+          <li> Pear-shaped object</li>
+          <li> It seems to be a square.</li>
+          <li> In many ways, it's similar to an Hourglass.</li>
+        </ul>
+        <h3 class="my-0">- Now wrap your fingers and thumb around your wrist:</h3>
+        <ul>
+          <li> My fingers are not intertwined.</li>
+          <li> My fingers intertwine.</li>
+          <li> This is a perfect circle.</li>
+        </ul>
+        <h3 class="my-0">- How you gain weight?</h3>
+        <ol>
+          <li>I put on weight quickly, but it takes a lot of effort to get rid of that weight.</li>
+          <li>My weight growth and maintenance is challenging for me.</li>
+          <li>I have no trouble gaining or losing weight.</li>
+        </ol>
+        <ul>
+          <li> Ectomorph: If you're slender and tall, yet you find it difficult to build the correct amount of muscle,
+            you may be an ectomorph.</li>
+          <li> Being an endomorph is defined as having a very tough time slimming down.</li>
+          <li> A mesomorph physique is one in which gaining muscle mass and shedding pounds isn't a difficulty. The
+            hourglass figure may be easily achieved by women in this group.</li>
+        </ul>
+        <p>It's important to keep in mind that women come in a variety of shapes and sizes and that these three groups
+          operate as a triangle.</p>
+        <p>More than that, using a body measurement calculator may save time and effort by helping you find your ideal
+          body measurement quickly. It's important to know your body type before deciding what sort of clothing to
+          wear</p>
+        <h2 class="text-secondary">The Waist-Hip Ratio (WHR) – body shape calculator :</h2>
+        <p>The waist-hip ratio is described as the relationship between the waist and hips.. The waist-hip ratio is
+          computed by dividing the waist circumference by the hip circumference. Waist-to-hip ratio for the ideal
+          female physique varies based on the body type of a woman. The waist-hip ratio for a woman with a 24" waist
+          and a 30" hip is 0.85. </p>
+        <p>It is also possible to utilize the waist-hip ratio to determine one's body form. According to the body
+          measuring calculator, the body form in this situation is a triangle.</p>
+        <h2 class="text-secondary">How to Take Body Measurements Yourself?</h2>
+        <p>The connection between the waist and the hips is what is meant by the waist-hip ratio. To get the waist-hip
+          ratio, divide the waist diameter by the hip circumference. Body type affects a woman's preferred ratio
+          between her waist and hip circumference. </p>
+        <p> A lady with a 24" waist and a 30" hip has a waist-hip ratio of 0.85. The waist-hip ratio may also be used
+          to identify a person's physical structure. In this case, the body shape is a triangle, according to the
+          body-measurement calculator.</p>
+        <ul>
+          <li> The circumference of the breast is measured using a measuring tape, which should not be too tight while
+            taking the measurement. It should be easy to inhale and exhale via the nose and mouth without discomfort.
+          </li>
+          <li> When it comes to determining one's waist, the lower part of one's upper body is measured. The ideal
+            spot to take this measurement is immediately above the navel.</li>
+          <li>The widest region of the lower leg is known as the hip. Keep your feet together as you take
+            precautionary precautions</li>
+          <li> Another hip measurement, the high hip is distinct from the preceding one in that it is higher in the
+            thigh. The narrower section of the hip curvature will be omitted when taking measurements with this
+            device.</li>
+        </ul>
+        <p>Measurements are critical in determining a person's body type. As a result, people with various body types
+          tend to have varying dimensions. What is my body type? is no longer an issue since our precise body shape
+          calculator solely takes into consideration the above-mentioned dimensions to accurately determine your body
+          type.</p>
+        <h2 class="text-secondary">FAQ’s (Body Shape or Female Figure):</h2>
+        <h3 class="my-0">- Does the contour of a woman's body alter as she gets older?</h3>
+        <p>As far as I know, yeah. Her physical form will vary as a result of hormonal changes as she ages. In
+          adolescence, the most significant changes take place. The hip-to-waist ratio of young males and women is
+          approximately same, but estrogen causes the hips and breasts of a female to get larger with time</p>
+        <p>Fat accumulates in one's thighs and hips as one ages due to estrogen. In women who are pregnant, estrogen
+          levels climb even higher, resulting in more weight gain</p>
+        <h3 class="my-0">- What is the most appealing female body type?</h3>
+        <p>With the narrowest waist to hip ratio, the hourglass body form is regarded the most appealing. An inverted
+          pyramid with broad shoulders and a smaller waist is the ideal masculine body type.</p>
+        <h3 class="my-0">- Is it possible to alter your body?</h3>
+        <p>Changing your physique after puberty is really tough. Keep in mind that there are just a few things you can
+          do. The size of your thighs and hips will fluctuate as you gain or lose weight. Change your body form by
+          gaining extra weight. Weight gain may be used to emphasize certain muscles, such as your shoulders</p>
+        <h3 class="my-0">- What does the 36 24 36 number mean?</h3>
+        <p>A 36 24 36 figure is characterized as an hourglass form. The three figures indicate the ideal body's
+          measurements in three different locations. The breast is at the top of the list, followed by the abdomen and
+          finally the waist. Using inches, the 36 24 36 number may be approximated as 36 24 36, or in centimeters, as
+          90 60 90.</p>
+        <h3 class="my-0">- When you lose weight, does your body form change?</h3>
+        <p>After reducing weight, your body's form does alter. The estrogen in females causes the body to accumulate
+          weight around the hips and thighs. These areas will lose weight if they become more physically fit. For men,
+          fat tends to accumulate around the abdomen, and if you're more physically active, you'll be better able to
+          get rid of it.</p>
+        <h3 class="my-0">- What is the meaning of zero?</h3>
+        <p>In the US sizing system, a zero figure, or a size zero, is a women' dress size. Between 30 22 32 (76 56 81
+          cm) and 36 28 36 (90 71.5 90 cm) in bust/abdomen/hips measurements, depending on the style.</p>
+        <h3 class="my-0">- What's a good size for a woman's waist?</h3>
+        <p>For women, the ideal waist measurement is 32 12 inches (82.5 cm); for men, the ideal measurement is 35
+          inches (89.1 cm) (88.9 cm). In this location, the hips and ribs are separated by a thin strip of skin. WHO
+          states that A <a routerLink="/health/bmi-calculator/."> body mass index </a> (BMI) of 40 inches or more for
+          males and 35 inches or more for women indicates
+          that the wearer is obese.</p>
+        <h3 class="my-0">- Which body type is the most prevalent?</h3>
+        <p>Rectangles are the most often seen body shapes. It's a woman with a waist that's less than nine inches wide
+          and smaller than her hips. The hourglass is the most unusual body type. Using the body measuring chart, you
+          can readily compare various body types.
+          What is the curving unit of measure?
+          Waist-to-hip ratio is off. 75. A lady is considered curvaceous if she has a 27-inch waist and a 36-inch hip
+          circumference.
+        </p>
+      </div>
+    </div>
+    <!-- <app-info></app-info> -->
+  </div>
+  <ngx-json-ld [json]="schema"></ngx-json-ld>
+
+</section>
